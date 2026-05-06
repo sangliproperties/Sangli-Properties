@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Property {
+  id           Int             @id @default(autoincrement())
+  title        String
+  slug         String          @unique
+  description  String
+  type         PropertyType
+  purpose      Purpose
+  price        Float
+  areaSqFt     Float
+  bhk          Int?
+  city         String
+  locality     String
+  address      String?
+  status       Status          @default(ACTIVE)
+  transaction  TransactionType
+  possession   String?
+  featured     Boolean         @default(false)
+  latitude     Float?
+  longitude    Float?
+  projectId    Int?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @default(now()) @updatedAt
+  amenities    String?
+  buildingName String?
+  flatNo       String?
+  furnishing   String?
+  landmark     String?
+  pinCode      String?
+  plotAreaSqFt Int?
+  propertyAge  String?
+  rating       Float           @default(0)
+  ratingCount  Int             @default(0)
+  street       String?
+  youtubeUrl   String?
+  areaLabel    String?
+  priceLabel   String?
+  cartItems    CartItem[]
+  enquiries    Enquiry[]
+  project      Project?        @relation(fields: [projectId], references: [id])
+  images       PropertyImage[]
+}
+
+model Project {
+  id            Int           @id @default(autoincrement())
+  name          String
+  slug          String        @unique
+  reraNumber    String?
+  developerName String?
+  minPrice      Int?
+  maxPrice      Int?
+  minAreaSqFt   Int?
+  maxAreaSqFt   Int?
+  minBhk        Int?
+  maxBhk        Int?
+  city          String
+  locality      String
+  address       String?
+  status        ProjectStatus @default(ONGOING)
+  description   String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
+  enquiries     Enquiry[]
+  properties    Property[]
+}
+
+model PropertyImage {
+  id         Int      @id @default(autoincrement())
+  url        String
+  alt        String?
+  sortOrder  Int      @default(0)
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+}
+
+model Enquiry {
+  id         Int         @id @default(autoincrement())
+  name       String
+  phone      String
+  email      String?
+  message    String?
+  type       EnquiryType
+  propertyId Int?
+  projectId  Int?
+  createdAt  DateTime    @default(now())
+  project    Project?    @relation(fields: [projectId], references: [id])
+  property   Property?   @relation(fields: [propertyId], references: [id])
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  fullName  String
+  phone     String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id                 Int       @id @default(autoincrement())
+  userId             Int
+  propertyId         Int?
+  crmPropertyId      String?
+  crmSlug            String?
+  crmCodeNo          String?
+  crmTitle           String?
+  crmLocation        String?
+  crmPrice           String?
+  crmType            String?
+  crmTransactionType String?
+  crmImageUrl        String?
+  crmImages          Json?
+  createdAt          DateTime  @default(now())
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, propertyId])
+  @@unique([userId, crmPropertyId])
+}
+
+enum PropertyType {
+  RESIDENTIAL
+  COMMERCIAL
+  PLOT
+  INDUSTRIAL
+  LAND
+}
+
+enum Purpose {
+  BUY
+  RENT
+  SELL
+}
+
+enum TransactionType {
+  NEW
+  RESALE
+}
+
+enum Status {
+  ACTIVE
+  SOLD
+  RENTED
+  INACTIVE
+}
+
+enum ProjectStatus {
+  ONGOING
+  COMPLETED
+  UPCOMING
+}
+
+enum EnquiryType {
+  GENERAL
+  PROPERTY
+  PROJECT
+}
