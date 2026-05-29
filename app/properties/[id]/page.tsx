@@ -335,7 +335,7 @@ export default async function PropertyDetailsPage({
                     {/* Gallery */}
                     <div className="mt-8 overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-white shadow-[0_14px_30px_rgba(15,23,42,0.12)]">
                         <PropertyGallery
-                            images={crmImages.length ? crmImages : ["/SP Placeholder Image.jpg"]}
+                            images={crmImages.length ? crmImages : ["/SP Placeholder Image2.png"]}
                             title={crmProperty.title}
                         />
                     </div>
@@ -486,7 +486,7 @@ export default async function PropertyDetailsPage({
                                                 images={
                                                     getCrmImages(p).length
                                                         ? getCrmImages(p).map((url) => ({ url }))
-                                                        : [{ url: "/SP Placeholder Image.jpg" }]
+                                                        : [{ url: "/SP Placeholder Image2.png" }]
                                                 }
                                                 title={p.title}
                                                 autoPlay

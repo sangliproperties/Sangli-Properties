@@ -44,7 +44,7 @@ export default function TermsOfServicePage() {
                     </li>
 
                     <li>
-                        The visitor represents and warrants that he/she is fully aware of the laws of the country/state he/she resides in and also those of India particularly those governing use, sale, lease, transfer of real estate and the visitor is neither violating nor attempting to violate any law.
+                        The visitor represents and warrants that he/she is fully aware of the laws of the country/state he/she resides in and also those of India particularly those governing use, sell, lease, transfer of real estate and the visitor is neither violating nor attempting to violate any law.
                     </li>
 
                     <li>

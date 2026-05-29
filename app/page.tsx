@@ -7,6 +7,7 @@ import YouTubeLatestSection from "@/components/YouTubeLatestSection";
 import PropertyCardCarousel from "@/components/PropertyCardCarousel";
 import HomePropertySections from "@/components/HomePropertySections";
 import HomeHeroSearch from "@/components/HomeHeroSearch";
+import HeroTextAnimation from "@/components/HeroTextAnimation";
 
 // Logos used in the “Our Happy Customers” strip
 const CUSTOMER_LOGOS = [
@@ -42,6 +43,7 @@ export default async function HomePage() {
       {/* HERO SECTION */}
 
       <section className="relative border-b border-[var(--color-border)] overflow-hidden">
+        <HeroTextAnimation />
         {/* BACKGROUND IMAGE */}
         <div className="absolute inset-0">
           <div className="hero-bg hero-bg-1" />
@@ -54,16 +56,16 @@ export default async function HomePage() {
         <div className="site-container relative z-10 flex flex-col gap-10 py-12 lg:flex-row lg:items-center">
           {/* LEFT SIDE */}
           <div className="w-full max-w-2xl space-y-5">
-            <p className="text-[11px] font-semibold tracking-[0.3em] text-[var(--color-accent)]">
+            <p className="hero-text-reveal hero-delay-1 text-[11px] font-semibold tracking-[0.3em] text-[var(--color-accent)]">
               REAL ESTATE CONSULTANT · SANGLI
             </p>
 
-            <h1 className="text-4xl font-semibold lg:text-5xl text-[var(--color-header)]">
+            <h1 className="hero-text-reveal hero-delay-2 text-4xl font-semibold lg:text-5xl text-[var(--color-header)]">
               Find the right property in{" "}
               <span className="text-[var(--color-accent)]">Sangli.</span>
             </h1>
 
-            <p className="text-sm text-[var(--color-header)]">
+            <p className="hero-text-reveal hero-delay-3 text-sm text-[var(--color-header)]">
               Buy, sell and rent residential and commercial properties with a
               trusted local advisor. 15+ years of experience, transparent
               process and end-to-end support from site visit to registration.
@@ -91,7 +93,7 @@ export default async function HomePage() {
 
           {/* RIGHT SIDE – HIGHLIGHT CARD */}
           <div className="relative z-10 flex flex-1 items-center justify-center">
-            <div className="w-full max-w-2xl rounded-3xl border border-[var(--color-border)] bg-[var(--color-card)] p-8 shadow-lg shadow-[var(--color-border)]/60">
+            <div className="hero-text-reveal hero-delay-4 w-full max-w-2xl rounded-3xl border border-[var(--color-border)] bg-[var(--color-card)] p-8 shadow-lg shadow-[var(--color-border)]/60">
               <p className="text-[13px] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent)]">
                 Highlight
               </p>

@@ -132,11 +132,11 @@ export default async function LandPropertiesPage({ searchParams }: PageProps) {
                             SANGLI PROPERTIES LLP
                         </p>
 
-                        <h1 className="text-3xl font-semibold sm:text-4xl leading-tight">
+                        <h1 className="text-3xl font-semibold sm:text-3xl leading-tight">
                             Land / Plot
                         </h1>
 
-                        <p className="text-3xl font-semibold sm:text-4xl leading-tight">
+                        <p className="text-3xl font-semibold sm:text-3xl leading-tight">
                             Properties
                         </p>
 
@@ -152,13 +152,19 @@ export default async function LandPropertiesPage({ searchParams }: PageProps) {
                     </div>
                 </div>
 
-                {/* SKYLINE */}
-                <div className="absolute bottom-0 left-85 right-5">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+               {/* LAND ADS */}
+                <div className="absolute top-[5px] bottom-[5px] left-[370px] right-[20px] hidden md:flex items-center justify-end gap-4 overflow-hidden">
+
                     <img
-                        src="/skyline_white2.png"
-                        alt="Skyline"
-                        className="w-small h-[170px] object-cover opacity-100 pointer-events-none hidden md:block"
+                        src="/Land1.png"
+                        alt="Land Advertisement 1"
+                        className="h-full w-[28%] -translate-y-[5px] rounded-xl object-cover object-center"
+                    />
+
+                    <img
+                        src="/Land2.png"
+                        alt="Land Advertisement 2"
+                        className="h-full w-[32%] -translate-y-[-2px] rounded-xl object-cover object-center"
                     />
                 </div>
             </section>

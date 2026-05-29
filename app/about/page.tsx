@@ -13,7 +13,7 @@ export default function AboutPage() {
               SANGLI PROPERTIES LLP
             </p>
 
-            <h1 className="text-3xl sm:text-4xl font-semibold">About Us</h1>
+            <h1 className="text-3xl sm:text-3xl font-semibold">About Us</h1>
 
             <nav className="text-xs text-white/80">
               <Link href="/" className="hover:underline">Home</Link>
@@ -23,13 +23,19 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* FULL-WIDTH SKYLINE AT BOTTOM */}
-        <div className="absolute bottom-0 left-85 right-5 ">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+        {/* About us ADS */}
+        <div className="absolute top-[5px] bottom-[5px] left-[370px] right-[20px] hidden md:flex items-center justify-end gap-4 overflow-hidden">
+
           <img
-            src="/skyline_white2.png"
-            alt="Skyline"
-            className="w-small object-cover opacity-100 pointer-events-none hidden md:block"
+            src="/AboutUs1.png"
+            alt="About Us Advertisement 1"
+            className="h-full w-[26%] -translate-y-[-3px] rounded-xl object-contain object-center"
+          />
+
+          <img
+            src="/AboutUs2.png"
+            alt="About Us Advertisement 2"
+            className="h-full w-[32%] -translate-y-[-2px] rounded-xl object-cover object-center"
           />
         </div>
       </section>

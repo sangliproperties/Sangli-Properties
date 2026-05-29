@@ -84,7 +84,7 @@ export default function HomeFeaturedClient({ featured }: { featured: any[] }) {
 
                         <div className="flex flex-1 flex-col p-4">
                             <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--color-accent)]">
-                                {p.purpose === "BUY" ? "For Sale" : "For Rent"} ·{" "}
+                                {p.purpose === "BUY" ? "For SELL" : "For Rent"} ·{" "}
                                 {(p.type ?? "").toLowerCase()}
                             </p>
 

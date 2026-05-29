@@ -156,6 +156,12 @@ export default function RootLayout({
                 </div>
 
                 <Link
+                  href="/"
+                  className="text-[19px] hover:text-[var(--color-header)] transition"
+                >
+                  Home
+                </Link>
+                <Link
                   href="/services"
                   className="text-[19px] hover:text-[var(--color-header)] transition"
                 >

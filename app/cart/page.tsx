@@ -84,12 +84,12 @@ export default async function CartPage() {
                                         ...img,
                                         url: fixMobileImageUrl(img.url),
                                     }))
-                                    : [{ url: "/SP Placeholder Image.jpg" }])
+                                    : [{ url: "/SP Placeholder Image2.png" }])
                                 : Array.isArray(item.crmImages) && item.crmImages.length > 0
                                     ? item.crmImages.map((url) => ({
                                         url: fixMobileImageUrl(String(url)),
                                     }))
-                                    : [{ url: fixMobileImageUrl(item.crmImageUrl || "/SP Placeholder Image.jpg") }];
+                                    : [{ url: fixMobileImageUrl(item.crmImageUrl || "/SP Placeholder Image2.png") }];
 
                             const purposeText = isLocal
                                 ? String(p.purpose).replaceAll("_", " ")

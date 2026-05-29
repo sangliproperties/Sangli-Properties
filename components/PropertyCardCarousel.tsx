@@ -48,7 +48,7 @@ function normalizeImages(images?: ImageInput[], title?: string): NormalizedImage
 
     return [
         {
-            url: "/SP Placeholder Image.jpg",
+            url: "/SP Placeholder Image2.png",
             alt: title || "Property image",
         },
     ];
@@ -149,7 +149,7 @@ export default function PropertyCardCarousel({
                                 draggable={false}
                                 loading="lazy"
                                 onError={(e) => {
-                                    e.currentTarget.src = "/SP Placeholder Image.jpg";
+                                    e.currentTarget.src = "/SP Placeholder Image2.png";
                                 }}
                             />
                         </div>

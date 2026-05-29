@@ -24,7 +24,7 @@ export default function PropertyGallery({
     const dragOffsetStartRef = useRef({ x: 0, y: 0 });
 
     const total = safeImages.length;
-    const fallback = "/SP Placeholder Image.jpg";
+    const fallback = "/SP Placeholder Image2.png";
 
     const MAX_VISIBLE_IMAGES = 8;
     const hasMoreImages = total > MAX_VISIBLE_IMAGES;

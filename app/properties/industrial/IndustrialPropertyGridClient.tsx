@@ -31,7 +31,7 @@ export default function IndustrialPropertyGridClient({
                                     images={
                                         images.length > 0
                                             ? images.map((url) => ({ url }))
-                                            : [{ url: "/SP Placeholder Image.jpg" }]
+                                            : [{ url: "/SP Placeholder Image2.png" }]
                                     }
                                     title={p.title}
                                     autoPlay
@@ -43,7 +43,7 @@ export default function IndustrialPropertyGridClient({
 
                             <div className="p-4">
                                 <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--color-accent)]">
-                                    {String(p.transactionType || "").toUpperCase() === "RENT" ? "FOR RENT" : "FOR SALE"} · INDUSTRIAL
+                                    {String(p.transactionType || "").toUpperCase() === "RENT" ? "FOR RENT" : "FOR SELL"} · INDUSTRIAL
                                 </p>
 
                                 <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-[var(--color-header)]">
