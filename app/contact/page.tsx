@@ -1,6 +1,86 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 export default function ContactPage() {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setError("");
+    setSuccess("");
+
+    if (!form.name.trim()) {
+      setError("Full name is required");
+      return;
+    }
+
+    if (!/^\d{10}$/.test(form.phone.trim())) {
+      setError("Enter valid 10 digit mobile number");
+      return;
+    }
+
+    if (!form.email.trim()) {
+      setError("Email is required");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      setError("Enter valid email address");
+      return;
+    }
+
+    if (!form.message.trim()) {
+      setError("Message is required");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/contact-submissions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        setError("Failed to submit enquiry");
+        return;
+      }
+
+      setSuccess("Thank you. We will contact you soon.");
+
+      setTimeout(() => {
+        setSuccess("");
+      }, 5000);
+
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+      });
+    } catch {
+      setError("Failed to submit enquiry");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
       {/* HERO / BANNER */}
@@ -105,7 +185,7 @@ export default function ContactPage() {
 
           {/* ========== RIGHT: CONTACT FORM ========== */}
           <div className="bg-white rounded-xl border border-[var(--color-border)] px-5 sm:px-6 py-6 shadow-sm">
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Full Name */}
               <div>
                 <label className="block text-sm font-medium mb-1">
@@ -113,6 +193,8 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="text"
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] bg-[var(--color-card)]"
                   placeholder="Enter your full name"
                 />
@@ -125,6 +207,8 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="tel"
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
                   className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] bg-[var(--color-card)]"
                   placeholder="Enter your mobile number"
                 />
@@ -133,10 +217,12 @@ export default function ContactPage() {
               {/* Email */}
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Email
+                  Email<span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
                   className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] bg-[var(--color-card)]"
                   placeholder="Enter your email address"
                 />
@@ -145,22 +231,37 @@ export default function ContactPage() {
               {/* Message */}
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Write message
+                  Write message<span className="text-red-500">*</span>
                 </label>
                 <textarea
                   rows={5}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
                   className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] bg-[var(--color-card)] resize-none"
                   placeholder="Tell us briefly how we can help you"
                 />
               </div>
 
+              {error && (
+                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 shadow-sm">
+                  {error}
+                </div>
+              )}
+
+              {success && (
+                <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700 shadow-sm">
+                  ✅ {success}
+                </div>
+              )}
+
               {/* Button */}
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center rounded-full bg-[var(--color-accent)] px-6 py-2 text-sm font-semibold text-white shadow hover:bg-[#e28c1d]"
+                  disabled={loading}
+                  className="inline-flex items-center justify-center rounded-full bg-[var(--color-accent)] px-6 py-2 text-sm font-semibold text-white shadow hover:bg-[#e28c1d] disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Contact Us
+                  {loading ? "Submitting..." : "Submit"}
                 </button>
               </div>
             </form>
@@ -168,24 +269,27 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ================= CTA (same style as Services/About) ================= */}
-      <section className="bg-[var(--color-accent)] text-white py-12 mt-4">
-        <div className="mx-auto flex max-w-[1400px] flex-col items-start justify-between gap-4 px-4 md:flex-row md:items-center">
-          <div>
-            <p className="uppercase text-sm tracking-widest text-white/80">
-              Looking To Sell Or Rent Your Property?
-            </p>
-            <h3 className="text-lg font-semibold mt-1">
-              Share your details and we&apos;ll get in touch with a free consultation.
-            </h3>
-          </div>
+      {/* ================= FIND US HERE / GOOGLE MAP ================= */}
+      <section className="mx-auto max-w-[1400px] px-4 pb-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-semibold tracking-wide text-[var(--color-header)]">
+            Find Us Here
+          </h2>
+          <div className="mt-3 mx-auto h-[2px] w-16 rounded-full bg-[var(--color-accent)]" />
+          <p className="mt-3 text-sm sm:text-base text-[var(--color-muted)]">
+            Visit our office for a cup of coffee and discuss your property needs.
+          </p>
+        </div>
 
-          <Link
-            href="/submit-property"
-            className="mt-6 md:mt-0 bg-white text-[var(--color-accent)] font-semibold px-6 py-2 rounded-full shadow hover:bg-gray-100"
-          >
-            Submit Now
-          </Link>
+        <div className="mt-10 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white shadow-xl">
+          <iframe
+            title="Sangli Properties LLP Office Location"
+            src="https://www.google.com/maps?q=Sangli%20Properties%20LLP%2C%20Rajesh%20Bungalow%2C%20100%20Feet%20Road%2C%20Vishrambag%2C%20Sangli%2C%20Maharashtra%20416415&output=embed"
+            className="h-[360px] w-full sm:h-[420px] lg:h-[450px]"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
         </div>
       </section>
     </main>
