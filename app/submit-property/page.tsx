@@ -62,9 +62,11 @@ export default function SubmitPropertyPage() {
                 <input
                   name="title"
                   required
+                  pattern="[A-Za-z0-9\s]+"
+                  title="Property title should contain only letters and numbers"
                   type="text"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter property title"
+                  placeholder="E.g. 2 BHk, Shop, Buglow..."
                 />
               </div>
 
@@ -76,8 +78,11 @@ export default function SubmitPropertyPage() {
                   name="price"
                   required
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="Price should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter price"
+                  placeholder="E.g. ₹50,00,000 or ₹15,000"
                 />
               </div>
 
@@ -90,7 +95,7 @@ export default function SubmitPropertyPage() {
                   required
                   type="text"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter location or full address"
+                  placeholder="E.g. Rajesh Bungalow, LIC Colony, Vishrambag, Sangli"
                 />
               </div>
 
@@ -101,8 +106,10 @@ export default function SubmitPropertyPage() {
                 <input
                   name="googleLocationLink"
                   type="url"
+                  pattern="https?://.+"
+                  title="Enter a valid link starting with http:// or https://"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Paste Google Maps link"
+                  placeholder="E.g. https://maps.google.com/..."
                 />
               </div>
 
@@ -114,7 +121,7 @@ export default function SubmitPropertyPage() {
                   name="apartmentName"
                   type="text"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter apartment name"
+                  placeholder="E.g. Rajesh Bungalow , Seven Hills"
                 />
               </div>
             </div>
@@ -128,14 +135,17 @@ export default function SubmitPropertyPage() {
             <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Area (sqft)<span className="text-red-500">*</span>
+                  Total Area (sqft)<span className="text-red-500">*</span>
                 </label>
                 <input
                   name="areaSqft"
                   required
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="Area should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter area in sqft"
+                  placeholder="E.g. 1200 "
                 />
               </div>
 
@@ -146,20 +156,26 @@ export default function SubmitPropertyPage() {
                 <input
                   name="builtUpAreaSqft"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="Area should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter built up area"
+                  placeholder="E.g. 1100 "
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Carpet Area
+                  Carpet Area (sqft)
                 </label>
                 <input
                   name="carpetArea"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="Area should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter carpet area"
+                  placeholder="E.g. 1000 "
                 />
               </div>
 
@@ -170,18 +186,24 @@ export default function SubmitPropertyPage() {
                 <input
                   name="totalFloor"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="Floor should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter total floor"
+                  placeholder="E.g. 5"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Floor</label>
+                <label className="block text-sm font-medium mb-1">Property At Floor</label>
                 <input
                   name="floor"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="Floor should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter floor"
+                  placeholder="E.g. 3"
                 />
               </div>
 
@@ -221,8 +243,11 @@ export default function SubmitPropertyPage() {
                 <input
                   name="bedrooms"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="This field should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter bedrooms"
+                  placeholder="E.g. 2"
                 />
               </div>
 
@@ -233,8 +258,11 @@ export default function SubmitPropertyPage() {
                 <input
                   name="bathrooms"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="This field should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter bathrooms"
+                  placeholder="E.g. 2"
                 />
               </div>
 
@@ -245,8 +273,11 @@ export default function SubmitPropertyPage() {
                 <input
                   name="balconies"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="This field should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter balconies"
+                  placeholder="E.g. 1"
                 />
               </div>
 
@@ -257,8 +288,11 @@ export default function SubmitPropertyPage() {
                 <input
                   name="halls"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="This field should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter halls"
+                  placeholder="E.g. 1"
                 />
               </div>
             </div>
@@ -272,10 +306,11 @@ export default function SubmitPropertyPage() {
             <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Property Category
+                  Property Category<span className="text-red-500">*</span>
                 </label>
                 <select
                   name="propertyCategory"
+                  required
                   defaultValue=""
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
                 >
@@ -310,8 +345,11 @@ export default function SubmitPropertyPage() {
                 <input
                   name="constructionYear"
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]+"
+                  title="This field should contain only numbers"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter construction year"
+                  placeholder="E.g. 2018"
                 />
               </div>
 
@@ -367,8 +405,10 @@ export default function SubmitPropertyPage() {
                   name="ownerName"
                   required
                   type="text"
+                  pattern="[A-Za-z\s]+"
+                  title="Owner name should contain only alphabets"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter owner name"
+                  placeholder="E.g. Rajesh Patil"
                 />
               </div>
 
@@ -380,8 +420,12 @@ export default function SubmitPropertyPage() {
                   name="ownerPhone"
                   required
                   type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]{10}"
+                  maxLength={10}
+                  title="Phone number should be exactly 10 digits"
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter owner phone number"
+                  placeholder="E.g. 9876543210"
                 />
               </div>
 
@@ -393,7 +437,7 @@ export default function SubmitPropertyPage() {
                   name="description"
                   rows={5}
                   className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 text-sm outline-none resize-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)]"
-                  placeholder="Enter property description"
+                  placeholder="Discover your dream home in this highly sought-after, gated luxury society! This bright, airy, and beautifully maintained 2BHK flat offers 1,150 sq. ft. of comfortable living space with premium marble flooring and floor-to-ceiling windows."
                 />
               </div>
             </div>

@@ -67,7 +67,15 @@ export default function ContactModal({
     const submit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!name.trim()) return alert("Please enter your name");
+        const trimmedName = name.trim();
+
+        if (!trimmedName) {
+            return alert("Please enter your name");
+        }
+
+        if (!/^[A-Za-z\s]+$/.test(trimmedName)) {
+            return alert("Name should contain only alphabets");
+        }
         if (!/^\d{10}$/.test(mobile.trim())) {
             return alert("Please enter a valid 10 digit mobile number");
         }
@@ -79,7 +87,7 @@ export default function ContactModal({
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    customerName: name.trim(),
+                    customerName: trimmedName,
                     mobileNo: mobile.trim(),
                     requirementMessage: requirementMessage.trim(),
                     transactionType: propertyTransactionType || propertyData?.transactionType || propertyData?.transaction || "",
@@ -190,7 +198,12 @@ export default function ContactModal({
                         className="w-full rounded border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-orange-400"
                         placeholder="Your name*"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (/^[A-Za-z\s]*$/.test(value)) {
+                                setName(value);
+                            }
+                        }}
                     />
 
                     <input

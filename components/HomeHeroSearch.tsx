@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { hasInvalidSearchChars } from "@/lib/search";
 
 type Mode = "BUY" | "RENT";
 
@@ -40,25 +41,34 @@ export default function HomeHeroSearch() {
     const router = useRouter();
     const [mode, setMode] = useState<Mode>("BUY");
     const [query, setQuery] = useState("");
+    const [error, setError] = useState("");
 
     const placeholder = useMemo(() => {
         return mode === "BUY"
-            ? "2 BHK, Bungalow, Shop, Plot, Vishrambag, Balaji Nagar...."
-            : "2 BHK, Bungalow, Shop, Plot, Vishrambag, Balaji Nagar....";
+            ? "2 BHK, Bungalow, Shop, Plot, BUNG 0146, CPS.NO:5001..."
+            : "2 BHK, Bungalow, Shop, Plot, BUNG 0146, CPS.NO:5001...";
     }, [mode]);
 
     const handleSubmit = () => {
         const trimmed = query.trim();
 
-        const params = new URLSearchParams();
+        if (hasInvalidSearchChars(trimmed)) {
+            setError("Special characters like @ # * & are not allowed.");
+            return;
+        }
 
+        setError("");
+
+        const params = new URLSearchParams();
         params.set("purpose", mode);
+
         if (trimmed) {
             params.set("q", trimmed);
         }
 
         router.push(`/properties?${params.toString()}`);
     };
+
 
     return (
         <div className="mt-6 w-full max-w-3xl rounded-2xl bg-white/95 p-4 shadow-md">
@@ -90,7 +100,10 @@ export default function HomeHeroSearch() {
                 <input
                     type="text"
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => {
+                        setQuery(e.target.value);
+                        if (error) setError("");
+                    }}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleSubmit();
                     }}
@@ -106,6 +119,11 @@ export default function HomeHeroSearch() {
                     Search
                 </button>
             </div>
+            {error && (
+                <p className="mt-2 text-sm font-medium text-red-600">
+                    {error}
+                </p>
+            )}
         </div>
     );
 }

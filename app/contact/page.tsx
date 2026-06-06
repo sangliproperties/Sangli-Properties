@@ -21,8 +21,15 @@ export default function ContactPage() {
     setError("");
     setSuccess("");
 
-    if (!form.name.trim()) {
+    const trimmedName = form.name.trim();
+
+    if (!trimmedName) {
       setError("Full name is required");
+      return;
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(trimmedName)) {
+      setError("Full name should contain only alphabets");
       return;
     }
 
@@ -194,7 +201,14 @@ export default function ContactPage() {
                 <input
                   type="text"
                   value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    if (/^[A-Za-z\s]*$/.test(value)) {
+                      setForm({ ...form, name: value });
+                      setError("");
+                    }
+                  }}
                   className="w-full rounded-lg border border-[var(--color-border)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] bg-[var(--color-card)]"
                   placeholder="Enter your full name"
                 />

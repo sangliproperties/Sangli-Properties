@@ -32,6 +32,7 @@ export default function ResidentialFilters({
   // ✅ Budget inputs
   const [budgetMin, setBudgetMin] = useState(initialMinPrice);
   const [budgetMax, setBudgetMax] = useState(initialMaxPrice);
+  const [error, setError] = useState("");
 
   // If user navigates back/forward, keep UI in sync
   useEffect(() => {
@@ -57,6 +58,12 @@ export default function ResidentialFilters({
 
     // query
     const q = query.trim();
+
+    if (q && !/^[A-Za-z0-9\s.,:-]+$/.test(q)) {
+      setError("Search can contain only letters and numbers.");
+      return;
+    }
+
     if (q) params.set("q", q);
     else params.delete("q");
 
@@ -64,8 +71,15 @@ export default function ResidentialFilters({
     const mi = minArea.trim();
     const ma = maxArea.trim();
 
-    if (mi && !Number.isFinite(Number(mi))) return;
-    if (ma && !Number.isFinite(Number(ma))) return;
+    if (mi && !/^\d+$/.test(mi)) {
+      setError("Area should contain only numbers.");
+      return;
+    }
+
+    if (ma && !/^\d+$/.test(ma)) {
+      setError("Area should contain only numbers.");
+      return;
+    }
 
     if (mi) params.set("minArea", String(Number(mi)));
     else params.delete("minArea");
@@ -77,8 +91,17 @@ export default function ResidentialFilters({
     const minP = budgetMin.trim();
     const maxP = budgetMax.trim();
 
-    if (minP && !Number.isFinite(Number(minP))) return;
-    if (maxP && !Number.isFinite(Number(maxP))) return;
+    if (minP && !/^\d+$/.test(minP)) {
+      setError("Budget should contain only numbers.");
+      return;
+    }
+
+    if (maxP && !/^\d+$/.test(maxP)) {
+      setError("Budget should contain only numbers.");
+      return;
+    }
+
+    setError("");
 
     if (minP) params.set("minPrice", String(Number(minP)));
     else params.delete("minPrice");
@@ -126,7 +149,13 @@ export default function ResidentialFilters({
           </label>
           <input
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^[A-Za-z0-9\s.,:-]*$/.test(value)) {
+                setQuery(value);
+                setError("");
+              }
+            }}
             placeholder={searchPlaceholder}
             className="h-11 w-full rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
           />
@@ -140,13 +169,23 @@ export default function ResidentialFilters({
           <div className="grid grid-cols-2 gap-3">
             <input
               value={minArea}
-              onChange={(e) => setMinArea(e.target.value)}
+              onChange={(e) => {
+                if (/^\d*$/.test(e.target.value)) {
+                  setMinArea(e.target.value);
+                  setError("");
+                }
+              }}
               placeholder="Min Area"
               className="h-11 w-full rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
             />
             <input
               value={maxArea}
-              onChange={(e) => setMaxArea(e.target.value)}
+              onChange={(e) => {
+                if (/^\d*$/.test(e.target.value)) {
+                  setMaxArea(e.target.value);
+                  setError("");
+                }
+              }}
               placeholder="Max Area"
               className="h-11 w-full rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
             />
@@ -163,19 +202,35 @@ export default function ResidentialFilters({
           <div className="grid grid-cols-2 gap-3">
             <input
               value={budgetMin}
-              onChange={(e) => setBudgetMin(e.target.value)}
+              onChange={(e) => {
+                if (/^\d*$/.test(e.target.value)) {
+                  setBudgetMin(e.target.value);
+                  setError("");
+                }
+              }}
               placeholder="Min budget"
               className="h-11 w-full rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
             />
             <input
               value={budgetMax}
-              onChange={(e) => setBudgetMax(e.target.value)}
+              onChange={(e) => {
+                if (/^\d*$/.test(e.target.value)) {
+                  setBudgetMax(e.target.value);
+                  setError("");
+                }
+              }}
               placeholder="Max budget"
               className="h-11 w-full rounded-lg border border-[var(--color-border)] bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
             />
           </div>
         </div>
       </div>
+
+      {error && (
+        <p className="mt-3 text-sm font-medium text-red-600">
+          {error}
+        </p>
+      )}
 
       {/* Buttons */}
       <div className="mt-4 flex flex-wrap justify-end gap-3">

@@ -100,7 +100,7 @@ export default function AddToCartButton({
 
                         <div>
                             <p className="text-sm font-bold text-gray-900">
-                                {toast.type === "success" ? "Success" : "Notice"}
+                                {toast.type === "success" ? "Success" : "Alert"}
                             </p>
                             <p className="mt-1 text-sm text-gray-600">
                                 {toast.message}

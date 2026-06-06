@@ -8,6 +8,7 @@ import PropertyCardCarousel from "@/components/PropertyCardCarousel";
 import HomePropertySections from "@/components/HomePropertySections";
 import HomeHeroSearch from "@/components/HomeHeroSearch";
 import HeroTextAnimation from "@/components/HeroTextAnimation";
+import FacebookLatestPostsSection from "@/components/FacebookLatestPostsSection";
 
 // Logos used in the “Our Happy Customers” strip
 const CUSTOMER_LOGOS = [
@@ -185,6 +186,7 @@ export default async function HomePage() {
       </section>
 
       <YouTubeLatestSection />
+      <FacebookLatestPostsSection />
     </main>
   );
 }

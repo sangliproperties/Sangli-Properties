@@ -6,6 +6,7 @@ import PropertyCardCarousel from "@/components/PropertyCardCarousel";
 import StarRating from "@/components/StarRating";
 import { formatArea, formatPriceINR } from "@/lib/format";
 import { getWebsiteProperties, type CrmWebsiteProperty } from "@/lib/crm";
+import { normalizePropertyCode, normalizeSearchText } from "@/lib/search";
 
 /* export const dynamic = "force-dynamic"; */
 export const revalidate = 60;
@@ -73,14 +74,24 @@ export default async function ResidentialPropertiesPage({ searchParams }: PagePr
                     ? propertyTransaction === "RENT"
                     : true;
 
-        const locationText = String(p.location || "").toLowerCase();
-        const titleText = String(p.title || "").toLowerCase();
-        const searchText = q.toLowerCase();
+        const searchText = normalizeSearchText(q);
+        const searchCode = normalizePropertyCode(q);
+
+        const codeText = normalizeSearchText(p.codeNo);
+        const codeCompact = normalizePropertyCode(p.codeNo);
+        const titleText = normalizeSearchText(p.title);
+        const locationText = normalizeSearchText(p.location);
+        const typeText = normalizeSearchText(p.type);
+        const bedroomsText = normalizeSearchText(p.bedrooms);
 
         const matchesSearch =
             !q ||
             titleText.includes(searchText) ||
-            locationText.includes(searchText);
+            locationText.includes(searchText) ||
+            typeText.includes(searchText) ||
+            bedroomsText.includes(searchText) ||
+            codeText.includes(searchText) ||
+            codeCompact.includes(searchCode);
 
         const areaValue =
             p.area != null && p.area !== ""
@@ -153,14 +164,14 @@ export default async function ResidentialPropertiesPage({ searchParams }: PagePr
                     </div>
                 </div>
 
-           
+
                 {/* RESIDENTIAL ADS */}
                 <div className="absolute top-[5px] bottom-[5px] left-[370px] right-[20px] hidden md:flex items-center justify-end gap-4 overflow-hidden">
 
                     <img
                         src="/Header1.png"
                         alt="Residential Advertisement 1"
-                       className="h-full w-[27%] -translate-y-[18px] rounded-xl object-cover object-center"
+                        className="h-full w-[27%] -translate-y-[18px] rounded-xl object-cover object-center"
                     />
 
                     <img
@@ -180,7 +191,7 @@ export default async function ResidentialPropertiesPage({ searchParams }: PagePr
                     <div className="mt-3 mx-auto h-[2px] w-16 rounded-full bg-[var(--color-accent)]" />
 
                     {/* ✅ Filters now connected via URL params */}
-                    <ResidentialFilters />
+                    <ResidentialFilters searchPlaceholder="Search by title, location, BHK, property code… (BUNG 0146)" />
 
                     {/* GRID */}
                     <ResidentialPropertyGridClient properties={residentialProperties} />

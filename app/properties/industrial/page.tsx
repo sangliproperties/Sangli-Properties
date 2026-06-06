@@ -4,6 +4,7 @@ import PropertyCardCarousel from "@/components/PropertyCardCarousel";
 import { formatArea, formatPriceINR } from "@/lib/format";
 import { getWebsiteProperties, type CrmWebsiteProperty } from "@/lib/crm";
 import IndustrialPropertyGridClient from "./IndustrialPropertyGridClient";
+import { normalizePropertyCode, normalizeSearchText } from "@/lib/search";
 
 /* export const dynamic = "force-dynamic"; */
 export const revalidate = 60;
@@ -70,14 +71,24 @@ export default async function IndustrialPropertiesPage({ searchParams }: PagePro
                     ? propertyTransaction === "RENT"
                     : true;
 
-        const locationText = String(p.location || "").toLowerCase();
-        const titleText = String(p.title || "").toLowerCase();
-        const searchText = q.toLowerCase();
+        const searchText = normalizeSearchText(q);
+        const searchCode = normalizePropertyCode(q);
+
+        const codeText = normalizeSearchText(p.codeNo);
+        const codeCompact = normalizePropertyCode(p.codeNo);
+        const titleText = normalizeSearchText(p.title);
+        const locationText = normalizeSearchText(p.location);
+        const typeText = normalizeSearchText(p.type);
+        const bedroomsText = normalizeSearchText(p.bedrooms);
 
         const matchesSearch =
             !q ||
             titleText.includes(searchText) ||
-            locationText.includes(searchText);
+            locationText.includes(searchText) ||
+            typeText.includes(searchText) ||
+            bedroomsText.includes(searchText) ||
+            codeText.includes(searchText) ||
+            codeCompact.includes(searchCode);
 
         const areaValue =
             p.area != null && p.area !== ""
@@ -178,7 +189,7 @@ export default async function IndustrialPropertiesPage({ searchParams }: PagePro
                     <div className="mt-3 mx-auto h-[2px] w-16 rounded-full bg-[var(--color-accent)]" />
 
                     {/* ✅ Filters */}
-                    <ResidentialFilters searchPlaceholder="Search by title, location… (Godown, Warehouse, Factory, Miraj)" />
+                    <ResidentialFilters searchPlaceholder="Search by title, location, property code…" />
 
                     {/* GRID */}
                     <IndustrialPropertyGridClient properties={industrialProperties} />

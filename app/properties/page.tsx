@@ -2,6 +2,7 @@ import Link from "next/link";
 import ResidentialFilters from "@/components/ResidentialFilters";
 import { getWebsiteProperties, type CrmWebsiteProperty } from "@/lib/crm";
 import ResidentialPropertyGridClient from "./residential/ResidentialPropertyGridClient";
+import { normalizePropertyCode, normalizeSearchText } from "@/lib/search";
 
 export const revalidate = 60;
 
@@ -60,18 +61,24 @@ export default async function AllPropertiesPage({ searchParams }: PageProps) {
                     ? propertyTransaction === "RENT"
                     : true;
 
-        const locationText = String(p.location || "").toLowerCase();
-        const titleText = String(p.title || "").toLowerCase();
-        const typeText = String(p.type || "").toLowerCase();
-        const bedroomsText = String(p.bedrooms || "").toLowerCase();
-        const searchText = q.toLowerCase();
+        const searchText = normalizeSearchText(q);
+        const searchCode = normalizePropertyCode(q);
+
+        const codeText = normalizeSearchText(p.codeNo);
+        const codeCompact = normalizePropertyCode(p.codeNo);
+        const titleText = normalizeSearchText(p.title);
+        const locationText = normalizeSearchText(p.location);
+        const typeText = normalizeSearchText(p.type);
+        const bedroomsText = normalizeSearchText(p.bedrooms);
 
         const matchesSearch =
             !q ||
             titleText.includes(searchText) ||
             locationText.includes(searchText) ||
             typeText.includes(searchText) ||
-            bedroomsText.includes(searchText);
+            bedroomsText.includes(searchText) ||
+            codeText.includes(searchText) ||
+            codeCompact.includes(searchCode);
 
         const areaValue =
             p.area != null && p.area !== ""
@@ -154,7 +161,7 @@ export default async function AllPropertiesPage({ searchParams }: PageProps) {
                     </h2>
                     <div className="mt-3 mx-auto h-[2px] w-16 rounded-full bg-[var(--color-accent)]" />
 
-                    <ResidentialFilters searchPlaceholder="Search by city, locality, property type, BHK…" />
+                    <ResidentialFilters searchPlaceholder="Search by city, locality, property type, BHK, property code…" />
 
                     <ResidentialPropertyGridClient properties={allProperties} />
                 </div>
