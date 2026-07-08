@@ -114,23 +114,26 @@ export default async function HomePage() {
       </section>
 
       {/* HOME PROPERTY SECTIONS */}
-      <section
-        id="featured"
-        className="border-t border-[var(--color-border)] bg-[var(--color-bg)]"
-      >
-        <div className="site-container py-10">
-          <div>
-            <h2 className="text-lg font-semibold text-[var(--color-header)]">
-              Featured properties
-            </h2>
-            <p className="mt-1 text-xs text-[var(--color-muted)]">
-              Browse the latest published properties from Sangli Properties.
-            </p>
-          </div>
+      {/* HOME PROPERTY SECTIONS */}
+      {crmProperties.length > 0 ? (
+        <section
+          id="featured"
+          className="border-t border-[var(--color-border)] bg-[var(--color-bg)]"
+        >
+          <div className="site-container py-10">
+            <div>
+              <h2 className="text-lg font-semibold text-[var(--color-header)]">
+                Featured properties
+              </h2>
+              <p className="mt-1 text-xs text-[var(--color-muted)]">
+                Browse the latest published properties from Sangli Properties.
+              </p>
+            </div>
 
-          <HomePropertySections properties={crmProperties} />
-        </div>
-      </section>
+            <HomePropertySections properties={crmProperties} />
+          </div>
+        </section>
+      ) : null}
 
       {/* OUR HAPPY CUSTOMERS – LOGO SCROLLER */}
       <section className="border-t border-[var(--color-border)] bg-[var(--color-card)]">

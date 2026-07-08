@@ -43,17 +43,14 @@ type GetWebsitePropertiesParams = {
     type?: string;
 };
 
-const CRM_BASE_URL = process.env.CRM_BASE_URL;
+const CRM_BASE_URL = process.env.CRM_BASE_URL?.trim().replace(/\/+$/, "");
 
-function getCrmBaseUrl(): string {
-    if (!CRM_BASE_URL) {
-        throw new Error("CRM_BASE_URL is not set in environment");
-    }
-    return CRM_BASE_URL.replace(/\/+$/, "");
+function isCrmEnabled() {
+    return !!CRM_BASE_URL;
 }
 
 function buildWebsitePropertiesUrl(params?: GetWebsitePropertiesParams): string {
-    const baseUrl = getCrmBaseUrl();
+    const baseUrl = CRM_BASE_URL!;
     const qs = new URLSearchParams();
 
     if (params?.search?.trim()) qs.set("search", params.search.trim());
@@ -93,54 +90,71 @@ async function readJsonSafely(res: Response) {
 export async function getWebsiteProperties(
     params?: GetWebsitePropertiesParams,
 ): Promise<CrmWebsiteProperty[]> {
-    const url = buildWebsitePropertiesUrl(params);
-
-    const typeTag =
-        params?.type?.trim()
-            ? `crm-properties-type-${params.type.trim().toLowerCase()}`
-            : "crm-properties-all";
-
-    const res = await fetch(url, {
-        method: "GET",
-        next: {
-            revalidate: 60,
-            tags: ["crm-properties", typeTag],
-        },
-        headers: {
-            Accept: "application/json",
-        },
-    });
-
-    const data = await readJsonSafely(res);
-
-    if (!Array.isArray(data)) {
-        throw new Error("Invalid CRM response for website properties");
+    if (!isCrmEnabled()) {
+        return [];
     }
 
-    return data as CrmWebsiteProperty[];
+    try {
+        const url = buildWebsitePropertiesUrl(params);
+
+        const typeTag =
+            params?.type?.trim()
+                ? `crm-properties-type-${params.type.trim().toLowerCase()}`
+                : "crm-properties-all";
+
+        const res = await fetch(url, {
+            method: "GET",
+            next: {
+                revalidate: 60,
+                tags: ["crm-properties", typeTag],
+            },
+            headers: {
+                Accept: "application/json",
+            },
+        });
+
+        const data = await readJsonSafely(res);
+
+        if (!Array.isArray(data)) {
+            return [];
+        }
+
+        return data as CrmWebsiteProperty[];
+    } catch (error) {
+        console.error("CRM properties unavailable:", error);
+        return [];
+    }
 }
 
 export async function getWebsiteProperty(
     id: string,
 ): Promise<CrmWebsiteProperty | null> {
-    const cleanId = String(id || "").trim();
-    if (!cleanId) return null;
-
-    const baseUrl = getCrmBaseUrl();
-    const url = `${baseUrl}/api/website/properties/${encodeURIComponent(cleanId)}`;
-
-    const res = await fetch(url, {
-        method: "GET",
-        next: { revalidate: 60, tags: [`crm-property-${cleanId}`] },
-        headers: {
-            Accept: "application/json",
-        },
-    });
-
-    if (res.status === 404) {
+    if (!isCrmEnabled()) {
         return null;
     }
 
-    const data = await readJsonSafely(res);
-    return data as CrmWebsiteProperty;
+    try {
+        const cleanId = String(id || "").trim();
+        if (!cleanId) return null;
+
+        const url = `${CRM_BASE_URL}/api/website/properties/${encodeURIComponent(cleanId)}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+            next: { revalidate: 60, tags: [`crm-property-${cleanId}`] },
+            headers: {
+                Accept: "application/json",
+            },
+        });
+
+        if (res.status === 404) {
+            return null;
+        }
+
+        const data = await readJsonSafely(res);
+        return data as CrmWebsiteProperty;
+    } catch (error) {
+        console.error("CRM property unavailable:", error);
+        return null;
+    }
 }
