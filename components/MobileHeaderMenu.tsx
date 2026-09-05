@@ -33,11 +33,11 @@ export default function MobileHeaderMenu() {
     }, []);
 
     return (
-        <div className="md:hidden">
+        <div className="shrink-0 xl:hidden">
             <button
                 type="button"
                 onClick={() => setOpen((prev) => !prev)}
-                className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white p-2 text-gray-800 shadow-sm"
+                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-white p-2 text-gray-800 shadow-sm transition hover:bg-gray-50"
                 aria-label="Toggle menu"
             >
                 <svg
@@ -57,8 +57,15 @@ export default function MobileHeaderMenu() {
             </button>
 
             {open && (
-                <div className="absolute left-0 top-full z-50 w-full border-t border-[var(--color-border)] bg-white shadow-lg">
+                <div className="absolute left-0 top-full z-50 max-h-[calc(100vh-80px)] w-full overflow-y-auto border-t border-[var(--color-border)] bg-white shadow-lg">
                     <div className="site-container flex flex-col gap-4 py-4">
+                        <Link
+                            href="/"
+                            onClick={() => setOpen(false)}
+                            className="text-base font-medium text-[var(--color-header)]"
+                        >
+                            Home
+                        </Link>
                         <Link href="/properties" onClick={() => setOpen(false)} className="text-base font-medium text-[var(--color-header)]">
                             Properties
                         </Link>

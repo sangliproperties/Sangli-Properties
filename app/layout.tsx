@@ -46,8 +46,11 @@ export default function RootLayout({
 
           {/* HEADER */}
           <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-white">
-            <div className="site-container relative flex items-center justify-between py-1.5 md:py-1">
-              <a href="/" className="flex items-center">
+            <div className="site-container relative flex min-w-0 items-center justify-between gap-4 py-2 xl:gap-7 xl:py-2">
+              <Link
+                href="/"
+                className="flex min-w-0 shrink-0 items-center gap-2 xl:gap-3"
+              >
                 {/* Icon with animation */}
                 <div className="shrink-0 transition-all duration-300 hover:-translate-y-1 hover:scale-105">
                   <Image
@@ -55,30 +58,32 @@ export default function RootLayout({
                     alt="Sangli Properties LLP logo"
                     width={200}
                     height={200}
-                    className="h-18 w-18 rounded-full object-contain bg-white md:h-25 md:w-25"
+                    className="h-14 w-14 rounded-full bg-white object-contain sm:h-16 sm:w-16 xl:h-[72px] xl:w-[72px] 2xl:h-24 2xl:w-24"
                     priority
                   />
                 </div>
 
                 {/* BRAND TEXT */}
 
-                <div className="leading-tight">
-                  <h1 className={`${brandFont.className} text-[24px] sm:text-[24px] md:text-[32px] font-normal text-[#1a1a1a] tracking-tight`}>
+                <div className="min-w-0 leading-tight">
+                  <h1
+                    className={`${brandFont.className} whitespace-nowrap text-[20px] font-normal tracking-tight text-[#1a1a1a] sm:text-[24px] xl:text-[28px] 2xl:text-[32px]`}
+                  >
                     Sangli Properties LLP
                   </h1>
-                  <p className="mt-1 md:mt-2 text-[11px] md:text-[13px] italic tracking-wide text-[#555]">
+                  <p className="mt-1 whitespace-nowrap text-[10px] italic tracking-wide text-[#555] sm:text-[11px] xl:text-[13px] 2xl:text-[14px]">
                     Buy • Sell • Rent
                   </p>
                 </div>
-              </a>
+              </Link>
 
               {/* NAVIGATION */}
-              <nav className="hidden items-center gap-10 text-[19px] font-semibold text-[var(--color-muted)] md:flex">
+              <nav className="hidden min-w-0 flex-1 items-center justify-center gap-6 whitespace-nowrap text-[17px] font-semibold text-[var(--color-muted)] xl:flex 2xl:gap-9 2xl:text-[19px]">
                 {/* PROPERTIES – 2-LEVEL DROPDOWN */}
                 <div className="relative group pb-2">
                   <button
                     type="button"
-                    className="inline-flex items-center gap-1.5 text-[19px] hover:text-[var(--color-header)] transition"
+                    className="inline-flex items-center gap-1.5 text-[17px] transition hover:text-[var(--color-header)] 2xl:text-[19px]"
                   >
                     <span>Properties</span>
                     {/* small chevron */}
@@ -157,25 +162,25 @@ export default function RootLayout({
 
                 <Link
                   href="/"
-                  className="text-[19px] hover:text-[var(--color-header)] transition"
+                  className="text-[17px] transition hover:text-[var(--color-header)] 2xl:text-[19px]"
                 >
                   Home
                 </Link>
                 <Link
                   href="/services"
-                  className="text-[19px] hover:text-[var(--color-header)] transition"
+                  className="text-[17px] transition hover:text-[var(--color-header)] 2xl:text-[19px]"
                 >
                   Services
                 </Link>
                 <Link
                   href="/about"
-                  className="text-[19px] hover:text-[var(--color-header)] transition"
+                  className="text-[17px] transition hover:text-[var(--color-header)] 2xl:text-[19px]"
                 >
                   About
                 </Link>
                 <Link
                   href="/contact"
-                  className="text-[19px] hover:text-[var(--color-header)] transition"
+                  className="text-[17px] transition hover:text-[var(--color-header)] 2xl:text-[19px]"
                 >
                   Contact
                 </Link>
@@ -183,7 +188,7 @@ export default function RootLayout({
 
               {/* CTA BUTTONS */}
 
-              <div className="hidden md:block">
+              <div className="hidden shrink-0 xl:block">
                 <HeaderUserActions />
               </div>
 
