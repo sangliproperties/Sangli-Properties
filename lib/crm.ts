@@ -44,6 +44,7 @@ type GetWebsitePropertiesParams = {
 };
 
 const CRM_BASE_URL = process.env.CRM_BASE_URL?.trim().replace(/\/+$/, "");
+const CRM_REQUEST_TIMEOUT_MS = 20_000;
 
 function isCrmEnabled() {
     return !!CRM_BASE_URL;
@@ -104,6 +105,7 @@ export async function getWebsiteProperties(
 
         const res = await fetch(url, {
             method: "GET",
+            signal: AbortSignal.timeout(CRM_REQUEST_TIMEOUT_MS),
             next: {
                 revalidate: 60,
                 tags: ["crm-properties", typeTag],
@@ -141,6 +143,7 @@ export async function getWebsiteProperty(
 
         const res = await fetch(url, {
             method: "GET",
+            signal: AbortSignal.timeout(CRM_REQUEST_TIMEOUT_MS),
             next: { revalidate: 60, tags: [`crm-property-${cleanId}`] },
             headers: {
                 Accept: "application/json",
