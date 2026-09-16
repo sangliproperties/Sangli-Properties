@@ -1,5 +1,6 @@
 // lib/prisma.ts
 import { PrismaClient } from "@prisma/client";
+import { logger } from "@/lib/logger";
 
 const globalForPrisma = globalThis as unknown as {
   prisma?: PrismaClient;
@@ -10,6 +11,8 @@ export const prisma =
   new PrismaClient({
     log: ["error", "warn"],
   });
+
+logger.step("Prisma client initialized");
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;

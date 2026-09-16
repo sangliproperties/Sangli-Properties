@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
+    logger.step("Website lead submission started");
     try {
         const body = await req.json();
 
@@ -48,6 +50,7 @@ export async function POST(req: NextRequest) {
             },
         });
     } catch (error) {
+        logger.error("Website lead submission failed", error);
         console.error("Website lead submit error:", error);
 
         return NextResponse.json(

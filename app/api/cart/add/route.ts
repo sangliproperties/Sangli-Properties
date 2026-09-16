@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromCookie } from "@/lib/auth";
+import { logger } from "@/lib/logger";
 
 
 function fixMobileImageUrl(url: string) {
@@ -29,6 +30,7 @@ function fixMobileImageUrl(url: string) {
 }
 
 export async function POST(req: Request) {
+    logger.step("Cart add started");
     try {
         const cookieStore = await cookies();
         const userId = getUserIdFromCookie(cookieStore.get("sp_user")?.value);
@@ -127,6 +129,7 @@ export async function POST(req: Request) {
             { status: 400 }
         );
     } catch (error) {
+        logger.error("Cart add failed", error);
         console.error("Cart add error:", error);
         return NextResponse.json({ error: "Server error" }, { status: 500 });
     }

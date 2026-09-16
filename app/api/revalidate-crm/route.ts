@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag, revalidatePath } from "next/cache";
+import { logger } from "@/lib/logger";
 
 function getSecretFromRequest(req: NextRequest) {
     return (
@@ -10,6 +11,7 @@ function getSecretFromRequest(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    logger.step("CRM cache revalidation started");
     try {
         const expectedSecret = process.env.CRM_REVALIDATE_SECRET;
 
@@ -74,6 +76,7 @@ export async function POST(req: NextRequest) {
             propertyType: propertyType || null,
         });
     } catch (error) {
+        logger.error("CRM cache revalidation failed", error);
         return NextResponse.json(
             {
                 ok: false,

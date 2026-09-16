@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
+    logger.step("Contact submission started");
     try {
         const body = await req.json();
 
@@ -29,7 +31,8 @@ export async function POST(req: NextRequest) {
             status: crmRes.status,
             headers: { "Content-Type": crmRes.headers.get("content-type") || "application/json" },
         });
-    } catch {
+    } catch (error) {
+        logger.error("Contact submission failed", error);
         return NextResponse.json({ message: "Failed to submit contact form" }, { status: 500 });
     }
 }

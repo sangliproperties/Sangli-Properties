@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
+import { logger } from "@/lib/logger";
 
 function sign(value: string) {
   const secret = process.env.AUTH_SECRET || "dev_secret";
@@ -9,6 +10,7 @@ function sign(value: string) {
 }
 
 export async function POST(req: Request) {
+  logger.step("Auth registration started");
   try {
     const body = await req.json();
     const fullName = String(body.fullName || "").trim();
@@ -47,7 +49,8 @@ export async function POST(req: Request) {
     });
 
     return res;
-  } catch {
+  } catch (error) {
+    logger.error("Auth registration failed", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

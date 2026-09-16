@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
 
 const CRM_BASE_URL = process.env.CRM_BASE_URL;
 
@@ -22,6 +23,7 @@ function redirectWithMessage(
 }
 
 export async function POST(request: NextRequest) {
+    logger.step("Website property submission started");
     try {
         if (!CRM_BASE_URL) {
             return redirectWithMessage(
@@ -198,6 +200,7 @@ export async function POST(request: NextRequest) {
             "Property submitted successfully."
         );
     } catch (error) {
+        logger.error("Website property submission failed", error);
         console.error("Website property submission error:", error);
 
         return redirectWithMessage(

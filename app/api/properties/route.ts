@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { logger } from "@/lib/logger";
 
 function slugify(text: string) {
     return text
@@ -73,6 +74,7 @@ function parseAreaToSqFt(input: string): number {
 }
 
 export async function POST(req: Request) {
+    logger.step("Property creation started");
     const form = await req.formData();
 
     // ✅ Read fields from form
@@ -186,6 +188,7 @@ export async function POST(req: Request) {
                 : undefined,
         },
     });
+    logger.step("Property created successfully", { propertyId: created.id });
 
     // ✅ Redirect user to the correct listing page
     let redirectTo = "/properties";

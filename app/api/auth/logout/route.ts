@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { logger } from "@/lib/logger";
 
 export async function POST() {
+    logger.step("Auth logout started");
     const res = NextResponse.json({ ok: true });
 
     // delete cookie
@@ -11,5 +13,6 @@ export async function POST() {
         maxAge: 0,
     });
 
+    logger.step("Auth logout completed");
     return res;
 }

@@ -2,8 +2,10 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { getUserIdFromCookie } from "@/lib/auth";
+import { logger } from "@/lib/logger";
 
 export async function POST(req: Request) {
+    logger.step("Property rating started");
     try {
         const cookieStore = await cookies();
         const userId = getUserIdFromCookie(cookieStore.get("sp_user")?.value);
@@ -71,6 +73,7 @@ export async function POST(req: Request) {
             { status: 200 }
         );
     } catch (err) {
+        logger.error("Property rating failed", err);
         console.error("Rate property error:", err);
         return NextResponse.json({ error: "Server error" }, { status: 500 });
     }

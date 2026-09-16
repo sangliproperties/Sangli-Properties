@@ -1,4 +1,5 @@
 // lib/crm.ts
+import { logger } from "@/lib/logger";
 
 export type CrmWebsiteProperty = {
     id: string;
@@ -92,11 +93,13 @@ export async function getWebsiteProperties(
     params?: GetWebsitePropertiesParams,
 ): Promise<CrmWebsiteProperty[]> {
     if (!isCrmEnabled()) {
+        logger.warn("CRM properties request skipped because CRM_BASE_URL is not configured");
         return [];
     }
 
     try {
         const url = buildWebsitePropertiesUrl(params);
+        logger.step("Fetching properties from CRM", { type: params?.type, hasSearch: !!params?.search });
 
         const typeTag =
             params?.type?.trim()
@@ -118,11 +121,14 @@ export async function getWebsiteProperties(
         const data = await readJsonSafely(res);
 
         if (!Array.isArray(data)) {
+            logger.warn("CRM properties response was not an array");
             return [];
         }
 
+        logger.step("CRM properties fetched successfully", { count: data.length });
         return data as CrmWebsiteProperty[];
     } catch (error) {
+        logger.error("CRM properties request failed", error);
         console.error("CRM properties unavailable:", error);
         return [];
     }
@@ -132,6 +138,7 @@ export async function getWebsiteProperty(
     id: string,
 ): Promise<CrmWebsiteProperty | null> {
     if (!isCrmEnabled()) {
+        logger.warn("CRM property request skipped because CRM_BASE_URL is not configured");
         return null;
     }
 
@@ -140,6 +147,7 @@ export async function getWebsiteProperty(
         if (!cleanId) return null;
 
         const url = `${CRM_BASE_URL}/api/website/properties/${encodeURIComponent(cleanId)}`;
+        logger.step("Fetching property from CRM", { propertyId: cleanId });
 
         const res = await fetch(url, {
             method: "GET",
@@ -151,12 +159,15 @@ export async function getWebsiteProperty(
         });
 
         if (res.status === 404) {
+            logger.info("CRM property was not found", { propertyId: cleanId });
             return null;
         }
 
         const data = await readJsonSafely(res);
+        logger.step("CRM property fetched successfully", { propertyId: cleanId });
         return data as CrmWebsiteProperty;
     } catch (error) {
+        logger.error("CRM property request failed", error);
         console.error("CRM property unavailable:", error);
         return null;
     }
