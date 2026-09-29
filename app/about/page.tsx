@@ -1,14 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import PageHeroAds from "@/components/PageHeroAds";
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
       {/* HERO / BANNER */}
       <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-header)] text-white">
-        <div className="relative z-10 mx-auto flex max-w-[1400px] justify-between px-4 pt-10 pb-10 sm:pt-12 sm:pb-12 md:pt-14 md:pb-20">
+        <div className="relative z-10 mx-auto flex max-w-[1400px] flex-col justify-between gap-6 px-4 pt-6 pb-6 sm:pt-8 sm:pb-8 md:flex-row md:items-center md:pt-10 md:pb-10 lg:gap-8">
           {/* LEFT TEXT */}
-          <div className="max-w-xl space-y-3">
+          <div className="min-w-0 max-w-xl shrink-0 space-y-3">
             <p className="text-sm uppercase tracking-[0.35em] text-white/90">
               SANGLI PROPERTIES LLP
             </p>
@@ -21,21 +22,11 @@ export default function AboutPage() {
               <span>About Us</span>
             </nav>
           </div>
-        </div>
-
-        {/* About us ADS */}
-        <div className="absolute top-[5px] bottom-[5px] left-[370px] right-[20px] hidden md:flex items-center justify-end gap-4 overflow-hidden">
-
-          <img
-            src="/AboutUs1.png"
-            alt="About Us Advertisement 1"
-            className="h-full w-[26%] -translate-y-[-3px] rounded-xl object-contain object-center"
-          />
-
-          <img
-            src="/AboutUs2.png"
-            alt="About Us Advertisement 2"
-            className="h-full w-[32%] -translate-y-[-2px] rounded-xl object-cover object-center"
+          <PageHeroAds
+            images={[
+              { src: "/AboutUs1.png", alt: "About Us Advertisement 1" },
+              { src: "/AboutUs2.png", alt: "About Us Advertisement 2" },
+            ]}
           />
         </div>
       </section>
@@ -82,7 +73,7 @@ export default function AboutPage() {
             </p>
 
             <p className="text-[var(--color-muted)] leading-relaxed">
-              With a rich experience of 15+ years, builders trust our name to market their properties,
+              With a rich experience of 30+ years, builders trust our name to market their properties,
               and buyers believe that we will select and deliver the perfect abode for them.
             </p>
           </div>
@@ -126,7 +117,7 @@ export default function AboutPage() {
           <div className="bg-white rounded-xl shadow p-6 border border-[var(--color-border)]">
             <h3 className="font-semibold mb-2">Investors</h3>
             <p className="text-[var(--color-muted)] text-sm leading-relaxed">
-              Unsure where to invest? Our clients have trusted us for 15+ years with
+              Unsure where to invest? Our clients have trusted us for 30+ years with
               their investments — your success becomes our responsibility.
             </p>
           </div>

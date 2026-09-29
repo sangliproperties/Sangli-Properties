@@ -4,6 +4,7 @@ import PropertyCardCarousel from "@/components/PropertyCardCarousel";
 import { formatArea, formatPriceINR } from "@/lib/format";
 import { getWebsiteProperties, type CrmWebsiteProperty } from "@/lib/crm";
 import LandPropertyGridClient from "./LandPropertyGridClient";
+import PageHeroAds from "@/components/PageHeroAds";
 import { normalizePropertyCode, normalizeSearchText } from "@/lib/search";
 
 /* export const dynamic = "force-dynamic"; */
@@ -136,8 +137,8 @@ export default async function LandPropertiesPage({ searchParams }: PageProps) {
         <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
             {/* HERO / BANNER */}
             <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-header)] text-white">
-                <div className="relative z-10 mx-auto max-w-[1400px] px-4 pt-10 pb-10 sm:pt-12 sm:pb-12 md:pt-14 md:pb-8">
-                    <div className="space-y-3">
+                <div className="relative z-10 mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pt-6 pb-6 sm:pt-8 sm:pb-8 md:flex-row md:items-center md:justify-between md:pt-10 md:pb-10 lg:gap-8">
+                    <div className="min-w-0 shrink-0 space-y-3">
                         <p className="text-sm tracking-[0.35em] uppercase text-white/90">
                             SANGLI PROPERTIES LLP
                         </p>
@@ -160,21 +161,11 @@ export default async function LandPropertiesPage({ searchParams }: PageProps) {
                             <span>Land</span>
                         </nav>
                     </div>
-                </div>
-
-                {/* LAND ADS */}
-                <div className="absolute top-[5px] bottom-[5px] left-[370px] right-[20px] hidden md:flex items-center justify-end gap-4 overflow-hidden">
-
-                    <img
-                        src="/Land1.png"
-                        alt="Land Advertisement 1"
-                        className="h-full w-[28%] -translate-y-[5px] rounded-xl object-cover object-center"
-                    />
-
-                    <img
-                        src="/Land2.png"
-                        alt="Land Advertisement 2"
-                        className="h-full w-[32%] -translate-y-[-2px] rounded-xl object-cover object-center"
+                    <PageHeroAds
+                        images={[
+                            { src: "/Land1.png", alt: "Land Advertisement 1" },
+                            { src: "/Land2.png", alt: "Land Advertisement 2" },
+                        ]}
                     />
                 </div>
             </section>

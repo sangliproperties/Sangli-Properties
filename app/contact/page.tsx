@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import PageHeroAds from "@/components/PageHeroAds";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -92,9 +93,9 @@ export default function ContactPage() {
     <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
       {/* HERO / BANNER */}
       <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-header)] text-white">
-        <div className="relative z-10 mx-auto flex max-w-[1400px] justify-between px-4 pt-10 pb-10 sm:pt-12 sm:pb-12 md:pt-14 md:pb-20">
+        <div className="relative z-10 mx-auto flex max-w-[1400px] flex-col justify-between gap-6 px-4 pt-6 pb-6 sm:pt-8 sm:pb-8 md:flex-row md:items-center md:pt-10 md:pb-10 lg:gap-8">
           {/* LEFT TEXT */}
-          <div className="max-w-xl space-y-3">
+          <div className="min-w-0 max-w-xl shrink-0 space-y-3">
             <p className="text-sm uppercase tracking-[0.35em] text-white/90">
               SANGLI PROPERTIES LLP
             </p>
@@ -107,20 +108,11 @@ export default function ContactPage() {
               <span>Contact Us</span>
             </nav>
           </div>
-        </div>
-
-        {/* Contact Us ADS */}
-        <div className="absolute top-[5px] bottom-[5px] left-[370px] right-[20px] hidden md:flex items-center justify-end gap-2 overflow-hidden">
-
-          <img
-            src="/ContactUs1.png"
-            alt="Contact Us Advertisement 1"
-            className="h-full w-[29%] -translate-y-[-3px] rounded-xl object-contain object-center"
-          />
-          <img
-            src="/AboutUs2.png"
-            alt="About Us Advertisement 2"
-            className="h-full w-[32%] -translate-y-[-2px] rounded-xl object-cover object-center"
+          <PageHeroAds
+            images={[
+              { src: "/ContactUs1.png", alt: "Contact Us Advertisement 1" },
+              { src: "/AboutUs2.png", alt: "About Us Advertisement 2" },
+            ]}
           />
         </div>
       </section>

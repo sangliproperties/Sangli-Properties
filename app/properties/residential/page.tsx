@@ -1,4 +1,5 @@
 import ResidentialPropertyGridClient from "./ResidentialPropertyGridClient";
+import PageHeroAds from "@/components/PageHeroAds";
 import Link from "next/link";
 import ResidentialFilters from "@/components/ResidentialFilters";
 /* import { prisma } from "../../../lib/prisma"; */
@@ -138,8 +139,8 @@ export default async function ResidentialPropertiesPage({ searchParams }: PagePr
         <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
             {/* HERO / BANNER */}
             <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-header)] text-white">
-                <div className="relative z-10 mx-auto max-w-[1400px] px-4 pt-10 pb-10 sm:pt-12 sm:pb-12 md:pt-14 md:pb-8">
-                    <div className="space-y-3">
+                <div className="relative z-10 mx-auto flex max-w-[1400px] flex-col gap-6 px-4 pt-4 pb-3 sm:pt-5 sm:pb-5 md:flex-row md:items-center md:justify-between md:pt-7 md:pb-7 lg:gap-8">
+                    <div className="min-w-0 shrink-0 space-y-3">
                         <p className="text-sm tracking-[0.35em] uppercase text-white/90">
                             SANGLI PROPERTIES LLP
                         </p>
@@ -162,22 +163,11 @@ export default async function ResidentialPropertiesPage({ searchParams }: PagePr
                             <span>Residential</span>
                         </nav>
                     </div>
-                </div>
-
-
-                {/* RESIDENTIAL ADS */}
-                <div className="absolute top-[5px] bottom-[5px] left-[370px] right-[20px] hidden md:flex items-center justify-end gap-4 overflow-hidden">
-
-                    <img
-                        src="/Header1.png"
-                        alt="Residential Advertisement 1"
-                        className="h-full w-[27%] -translate-y-[18px] rounded-xl object-cover object-center"
-                    />
-
-                    <img
-                        src="/Header2.png"
-                        alt="Residential Advertisement 2"
-                        className="h-full w-[32%] -translate-y-[2px] rounded-xl object-cover object-center"
+                    <PageHeroAds
+                        images={[
+                            { src: "/Header1.png", alt: "Residential Advertisement 1" },
+                            { src: "/Header2.png", alt: "Residential Advertisement 2" },
+                        ]}
                     />
                 </div>
             </section>

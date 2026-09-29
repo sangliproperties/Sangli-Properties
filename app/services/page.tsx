@@ -1,5 +1,6 @@
 // app/services/page.tsx
 import Link from "next/link";
+import PageHeroAds from "@/components/PageHeroAds";
 
 export const metadata = {
   title: "Services | Sangli Properties",
@@ -12,9 +13,9 @@ export default function ServicesPage() {
     <main className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
       {/* HERO / BANNER */}
       <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-header)] text-white">
-        <div className="relative z-10 mx-auto flex max-w-[1400px] justify-between px-4 pt-10 pb-10 sm:pt-12 sm:pb-12 md:pt-14 md:pb-20">
+        <div className="relative z-10 mx-auto flex max-w-[1400px] flex-col justify-between gap-6 px-4 pt-6 pb-6 sm:pt-8 sm:pb-8 md:flex-row md:items-center md:pt-10 md:pb-10 lg:gap-8">
           {/* LEFT TEXT */}
-          <div className="max-w-xl space-y-3">
+          <div className="min-w-0 max-w-xl shrink-0 space-y-3">
             <p className="text-sm tracking-[0.35em] uppercase text-white/150">
               SANGLI PROPERTIES LLP
             </p>
@@ -27,21 +28,11 @@ export default function ServicesPage() {
               <span>Services</span>
             </nav>
           </div>
-        </div>
-
-        {/* About us ADS */}
-        <div className="absolute top-[5px] bottom-[5px] left-[370px] right-[20px] hidden md:flex items-center justify-end gap-9 overflow-hidden">
-
-          <img
-            src="/Services1.png"
-            alt="Services Advertisement 1"
-            className="h-full w-[26%] -translate-y-[-3px] rounded-xl object-contain object-center"
-          />
-
-          <img
-            src="/AboutUs2.png"
-            alt="About Us Advertisement 2"
-            className="h-full w-[32%] -translate-y-[-2px] rounded-xl object-cover object-center"
+          <PageHeroAds
+            images={[
+              { src: "/Services1.png", alt: "Services Advertisement 1" },
+              { src: "/AboutUs2.png", alt: "About Us Advertisement 2" },
+            ]}
           />
         </div>
       </section>
@@ -58,7 +49,7 @@ export default function ServicesPage() {
 
             <p className="mt-5 text-sm leading-relaxed text-[var(--color-muted)]">
               The property market is one of the most complicated and volatile
-              markets. We look at this a bit differently. With 15+ years of
+              markets. We look at this a bit differently. With 30+ years of
               rich experience and the right resources in place, the property
               market is a home to us. Your anxiety is our comfort zone. Market
               knowledge is now at your fingertips to help you make an informed

@@ -68,7 +68,7 @@ export default async function HomePage() {
 
             <p className="hero-text-reveal hero-delay-3 text-sm text-[var(--color-header)]">
               Buy, sell and rent residential and commercial properties with a
-              trusted local advisor. 15+ years of experience, transparent
+              trusted local advisor. 30+ years of experience, transparent
               process and end-to-end support from site visit to registration.
             </p>
 
