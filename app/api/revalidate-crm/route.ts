@@ -1,3 +1,4 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag, revalidatePath } from "next/cache";
 import { logger } from "@/lib/logger";
@@ -12,6 +13,7 @@ function getSecretFromRequest(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     logger.step("CRM cache revalidation started");
+
     try {
         const expectedSecret = process.env.CRM_REVALIDATE_SECRET;
 
@@ -41,24 +43,29 @@ export async function POST(req: NextRequest) {
             body?.type ?? ""
         ).trim().toLowerCase();
 
-        // Global list caches
-        revalidateTag("crm-properties", "max");
-        revalidateTag("crm-properties-all", "max");
+        // Global list caches - immediate expiration
+        revalidateTag("crm-properties", { expire: 0 });
+        revalidateTag("crm-properties-all", { expire: 0 });
 
-        // Type-specific list caches
+        // Type-specific list caches - immediate expiration
         if (propertyType) {
-            revalidateTag(`crm-properties-type-${propertyType}`, "max");
+            revalidateTag(`crm-properties-type-${propertyType}`, {
+                expire: 0,
+            });
         } else {
-            // Safe fallback if CRM does not send type
-            revalidateTag("crm-properties-type-residential", "max");
-            revalidateTag("crm-properties-type-commercial", "max");
-            revalidateTag("crm-properties-type-industrial", "max");
-            revalidateTag("crm-properties-type-land", "max");
+            // Fallback when CRM does not send property type
+            revalidateTag("crm-properties-type-residential", { expire: 0 });
+            revalidateTag("crm-properties-type-commercial", { expire: 0 });
+            revalidateTag("crm-properties-type-industrial", { expire: 0 });
+            revalidateTag("crm-properties-type-land", { expire: 0 });
         }
 
-        // Single property detail cache
+        // Single property detail cache - immediate expiration
         if (propertyId) {
-            revalidateTag(`crm-property-${propertyId}`, "max");
+            revalidateTag(`crm-property-${propertyId}`, {
+                expire: 0,
+            });
+
             revalidatePath(`/properties/${propertyId}`);
         }
 
@@ -77,6 +84,7 @@ export async function POST(req: NextRequest) {
         });
     } catch (error) {
         logger.error("CRM cache revalidation failed", error);
+
         return NextResponse.json(
             {
                 ok: false,

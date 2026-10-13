@@ -1,5 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import { DM_Serif_Display } from "next/font/google";
 import FloatingSidebar from "@/components/FloatingSidebar";
@@ -192,7 +193,9 @@ export default function RootLayout({
                 <HeaderUserActions />
               </div>
 
-              <AuthButton showButton={false} />
+              <Suspense fallback={null}>
+                <AuthButton showButton={false} />
+              </Suspense>
 
               <MobileHeaderMenu />
             </div>

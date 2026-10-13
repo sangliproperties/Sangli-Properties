@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import PropertyCardCarousel from "@/components/PropertyCardCarousel";
 import ContactModal from "@/components/ContactModal";
 
-export default function HomeFeaturedClient({ featured }: { featured: any[] }) {
+function HomeFeaturedContent({ featured }: { featured: any[] }) {
     const searchParams = useSearchParams();
     const [selectedProperty, setSelectedProperty] = useState<Record<string, any> | null>(null);
     const q = (searchParams.get("q") ?? "").trim();
@@ -78,7 +78,7 @@ export default function HomeFeaturedClient({ featured }: { featured: any[] }) {
                                 autoPlay
                                 intervalMs={4000}
                                 swipeMs={600}
-                                /* randomStart */
+                            /* randomStart */
                             />
                         </div>
 
@@ -185,4 +185,16 @@ export default function HomeFeaturedClient({ featured }: { featured: any[] }) {
         </>
     );
 
+}
+
+export default function HomeFeaturedClient({
+    featured,
+}: {
+    featured: any[];
+}) {
+    return (
+        <Suspense fallback={null}>
+            <HomeFeaturedContent featured={featured} />
+        </Suspense>
+    );
 }
