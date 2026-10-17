@@ -9,6 +9,8 @@ import HomePropertySections from "@/components/HomePropertySections";
 import HomeHeroSearch from "@/components/HomeHeroSearch";
 import HeroTextAnimation from "@/components/HeroTextAnimation";
 import FacebookLatestPostsSection from "@/components/FacebookLatestPostsSection";
+import PropertyCategoryCounterSection from "@/components/PropertyCategoryCounterSection";
+
 
 // Logos used in the “Our Happy Customers” strip
 const CUSTOMER_LOGOS = [
@@ -54,9 +56,11 @@ export default async function HomePage() {
         </div>
 
         {/* CONTENT */}
-        <div className="site-container relative z-10 flex flex-col gap-10 py-12 lg:flex-row lg:items-center">
-          {/* LEFT SIDE */}
-          <div className="w-full max-w-2xl space-y-5">
+        <div className="site-container hero-main-layout relative z-10 py-12">
+
+          {/* LEFT SIDE - SEARCH AND HIGHLIGHT */}
+          <div className="hero-left-column w-full">
+
             <p className="hero-text-reveal hero-delay-1 text-[11px] font-semibold tracking-[0.3em] text-[var(--color-accent)]">
               REAL ESTATE CONSULTANT · SANGLI
             </p>
@@ -72,10 +76,32 @@ export default async function HomePage() {
               process and end-to-end support from site visit to registration.
             </p>
 
+
             {/* SEARCH CARD */}
-            <HomeHeroSearch />
+            <div className="hero-search-box">
+              <HomeHeroSearch />
+            </div>
+
+            {/* COMPACT HIGHLIGHT CARD */}
+            <div className="hero-text-reveal hero-delay-4 hero-highlight-box">
+              <p className="hero-highlight-label">
+                HIGHLIGHT
+              </p>
+
+              <p className="hero-highlight-title">
+                Verified projects, clear titles and
+                on-ground support in Sangli.
+              </p>
+
+              <div className="hero-highlight-features">
+                <p>• Residential &amp; commercial properties</p>
+                <p>• Plots, NA layouts &amp; farm lands</p>
+                <p>• Bank loan &amp; documentation assistance</p>
+              </div>
+            </div>
 
             {/* PRIMARY BUTTONS */}
+
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
                 href="/properties"
@@ -91,25 +117,6 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-
-          {/* RIGHT SIDE – HIGHLIGHT CARD */}
-          <div className="relative z-10 flex flex-1 items-center justify-center">
-            <div className="hero-text-reveal hero-delay-4 w-full max-w-2xl rounded-3xl border border-[var(--color-border)] bg-[var(--color-card)] p-8 shadow-lg shadow-[var(--color-border)]/60">
-              <p className="text-[13px] font-semibold uppercase tracking-[0.28em] text-[var(--color-accent)]">
-                Highlight
-              </p>
-
-              <p className="mt-3 text-xl font-semibold leading-relaxed text-[var(--color-header)]">
-                Verified projects, clear titles and on-ground support in Sangli.
-              </p>
-
-              <div className="mt-5 space-y-2 text-base leading-relaxed text-[var(--color-muted)]">
-                <p>• Residential &amp; commercial properties</p>
-                <p>• Plots, NA layouts &amp; farm lands</p>
-                <p>• Bank loan &amp; documentation assistance</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -123,10 +130,10 @@ export default async function HomePage() {
           <div className="site-container py-10">
             <div>
               <h2 className="text-lg font-semibold text-[var(--color-header)]">
-                Featured properties
+                Featured Property Deals
               </h2>
               <p className="mt-1 text-xs text-[var(--color-muted)]">
-                Browse the latest published properties from Sangli Properties.
+                Explore handpicked properties available for sale and rent.
               </p>
             </div>
 
@@ -185,10 +192,17 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
+      {/* PROPERTY CATEGORY COUNTER SECTION */}
+      <PropertyCategoryCounterSection />
+
+      {/* OUR LATEST VIDEOS */}
       <YouTubeLatestSection />
+
+      {/* FACEBOOK LATEST POSTS */}
       <FacebookLatestPostsSection />
     </main>
   );

@@ -37,7 +37,7 @@ export default function CommercialPropertyGridClient({
                                     autoPlay
                                     intervalMs={3500}
                                     swipeMs={600}
-                                    /* randomStart */
+                                /* randomStart */
                                 />
                             </div>
 
@@ -46,9 +46,11 @@ export default function CommercialPropertyGridClient({
                                     {String(p.transactionType || "").toUpperCase() === "RENT" ? "FOR RENT" : "FOR SELL"} · COMMERCIAL
                                 </p>
 
-                                <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-[var(--color-header)]">
+
+                                <h3 className="property-card-title">
                                     {p.title}
                                 </h3>
+
 
                                 <p className="mt-1 text-[11px] text-gray-500">{locationText}</p>
 
@@ -67,12 +69,17 @@ export default function CommercialPropertyGridClient({
                                     </div>
                                 </div>
 
-                                <div className="mt-4 flex items-center justify-between">
-                                    <div className="text-sm font-semibold text-[var(--color-header)]">
-                                        ₹ {p.price != null ? formatPriceINR(Number(String(p.price).replace(/[^\d.]/g, ""))) : "-"}
+
+                                <div className="mt-4 flex flex-col items-start gap-3">
+                                    <div className="property-card-price">
+                                        ₹ {p.price != null
+                                            ? formatPriceINR(
+                                                Number(String(p.price).replace(/[^\d.]/g, ""))
+                                            )
+                                            : "-"}
                                     </div>
 
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex w-full flex-wrap items-center justify-between gap-3">
                                         <button
                                             type="button"
                                             onClick={() =>
@@ -102,6 +109,7 @@ export default function CommercialPropertyGridClient({
                                         </Link>
                                     </div>
                                 </div>
+
                             </div>
                         </article>
                     );

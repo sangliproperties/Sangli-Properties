@@ -528,6 +528,7 @@ export default async function PropertyDetailsPage({
         );
     }
 
+
     const related = await prisma.property.findMany({
         where: {
             id: { not: property.id },
@@ -535,13 +536,16 @@ export default async function PropertyDetailsPage({
             type: property.type,
             purpose: property.purpose,
         },
-        include: { images: true },
+        include: {
+            images: true,
+        },
         orderBy: [
             { featured: "desc" },
             { createdAt: "desc" },
         ],
         take: 6,
     });
+
 
 
     return (
@@ -578,10 +582,12 @@ export default async function PropertyDetailsPage({
 
                 {/* Gallery Card */}
                 <div className="mt-8 overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-white shadow-[0_14px_30px_rgba(15,23,42,0.12)]">
+
                     <PropertyGallery
-                        images={property.images.map((img) => img.url)}
+                        images={property.images.map((img: { url: string }) => img.url)}
                         title={property.title}
                     />
+
                 </div>
 
                 {/* Details */}

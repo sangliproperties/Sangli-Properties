@@ -129,6 +129,7 @@ body {
   }
 }
 
+
 .property-marquee-track {
   display: flex;
   width: max-content;
@@ -159,15 +160,17 @@ body {
   }
 }
 
+
 @keyframes property-marquee-scroll {
   from {
     transform: translateX(0);
   }
 
   to {
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% - 0.75rem));
   }
 }
+
 
 .hero-text-reveal {
   opacity: 0;
@@ -207,5 +210,1006 @@ body {
     opacity: 1;
     filter: blur(0);
     transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ==========================================
+   SANGLI PROPERTIES - ORANGE & IVORY THEME
+   Property Card Title and Price Highlight
+========================================== */
+
+.property-card-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+
+  background: linear-gradient(110deg,
+      #FFF0DB 0%,
+      #FFE4BF 100%);
+
+  color: #A94D00;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.35;
+  border-left: 4px solid #F47C20;
+  box-shadow: 0 3px 10px rgba(244, 124, 32, 0.12);
+  overflow-wrap: anywhere;
+}
+
+.property-card-price {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  max-width: 100%;
+  padding: 9px 13px;
+  border-radius: 10px;
+
+  background: linear-gradient(120deg,
+      #F47C20 0%,
+      #E8680A 100%);
+
+  border: 1px solid #F47C20;
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  box-shadow: 0 4px 12px rgba(244, 124, 32, 0.22);
+}
+
+
+/* =====================================
+   SANGLI PROPERTIES - ORANGE & IVORY
+   COMPACT PROPERTY TITLE & PRICE
+===================================== */
+
+.property-card-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 40px;
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 9px;
+
+  background: linear-gradient(110deg,
+      #FFF0DB 0%,
+      #FFE4BF 100%);
+
+  color: #A94D00;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.3;
+
+  border-left: 4px solid #F47C20;
+  box-shadow: 0 2px 6px rgba(244, 124, 32, 0.10);
+  overflow-wrap: anywhere;
+}
+
+/* PROPERTY PRICE - SAME IVORY THEME */
+
+.property-card-price {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+
+  max-width: 100%;
+  padding: 8px 12px;
+  border-radius: 9px;
+
+  background: linear-gradient(110deg,
+      #FFF0DB 0%,
+      #FFE4BF 100%);
+
+  border-left: 4px solid #F47C20;
+  color: #A94D00;
+
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.3;
+
+  box-shadow: 0 2px 6px rgba(244, 124, 32, 0.10);
+  overflow-wrap: anywhere;
+}
+
+.property-card-price::before {
+  content: "PROPERTY PRICE";
+  color: #A94D00;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 640px) {
+  .property-card-title {
+    font-size: 15px;
+    padding: 7px 10px;
+  }
+
+  .property-card-price {
+    font-size: 17px;
+    padding: 7px 10px;
+  }
+}
+
+
+/* =========================================
+   EXCLUSIVE SALE & RENTAL LISTINGS
+   SOFT BLUE + IVORY GRADIENT BACKGROUND
+========================================= */
+
+.exclusive-property-section {
+  position: relative;
+
+  background: linear-gradient(120deg,
+      #F0F5FC 0%,
+      #DFEAF7 55%,
+      #FFF8EF 100%);
+
+  padding: 28px 24px 32px;
+  border-radius: 18px;
+
+  border: 1px solid #D5E3F2;
+
+  box-shadow: 0 5px 22px rgba(30, 64, 110, 0.08);
+}
+
+/* Exclusive section heading */
+
+.exclusive-property-section>div:first-child h3 {
+  color: #122b4a;
+  font-weight: 800;
+}
+
+/* Mobile responsive */
+
+@media (max-width: 640px) {
+  .exclusive-property-section {
+    padding: 18px 12px 22px;
+    border-radius: 12px;
+  }
+}
+
+
+/* ==========================================
+   FAMOUS PLACES - GREAT PROPERTIES
+========================================== */
+
+.famous-places-section {
+  position: relative;
+  isolation: isolate;
+  margin-top: 40px;
+  padding: 32px 24px 28px;
+  overflow: hidden;
+  background: linear-gradient(180deg,
+      #e4f2ff 0%,
+      #f3f9ff 58%,
+      #ffffff 100%);
+}
+
+
+/* Sangli district silhouette behind section content */
+
+.famous-places-section::before {
+  content: "";
+  position: absolute;
+
+  top: -130px;
+  right: 3%;
+
+  width: 58%;
+  height: 90%;
+
+  background-image: url("/famous-places/sangli-district-silhouette.png"
+    );
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Keep heading and cards above the map */
+
+.famous-places-container {
+  position: relative;
+  z-index: 1;
+}
+
+
+.famous-places-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+
+
+.famous-places-header {
+  position: relative;
+  min-height: 190px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0 22px 20px;
+}
+
+.famous-places-heading {
+  position: relative;
+  z-index: 2;
+  max-width: 470px;
+}
+
+.famous-places-eyebrow {
+  color: #78112b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.famous-places-title {
+  display: flex;
+  flex-direction: column;
+  color: #17133f;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 900;
+  line-height: 1.04;
+  letter-spacing: -1.5px;
+}
+
+.famous-places-title-accent {
+  color: #b00643;
+}
+
+.famous-places-description {
+  max-width: 330px;
+  margin-top: 12px;
+  color: #25243c;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* Map area */
+
+.famous-places-map {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  width: 40%;
+  height: 205px;
+  background-image: none;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+}
+
+
+/* Explore Sangli Text */
+
+.famous-places-map-label {
+  position: absolute;
+
+  top: 130px;
+  left: 15%;
+
+  transform: translateX(-50%) rotate(-8deg);
+
+  color: #622b20;
+  font-family: "Brush Script MT", cursive;
+
+  font-size: 34px;
+  line-height: 1.05;
+  font-weight: 400;
+
+  text-align: center;
+  white-space: nowrap;
+}
+
+
+
+/* Red Location Pin */
+
+.famous-places-pin {
+  position: absolute;
+
+  top: 90px;
+  right: 84%;
+
+  width: 24px;
+  height: 30px;
+
+  background: #c9003d;
+  border-radius: 50% 50% 50% 0;
+
+  transform: rotate(-45deg);
+}
+
+.famous-places-pin-dot {
+  position: absolute;
+
+  top: 9px;
+  left: 9px;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+
+/* Five location cards */
+
+.famous-places-grid {
+  position: relative;
+  z-index: 3;
+
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.famous-place-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  height: 340px;
+
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+
+.famous-place-card:hover {
+  transform: translateY(-5px);
+}
+
+.famous-place-image {
+  position: relative;
+
+  flex: 0 0 220px;
+  height: 220px;
+
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+
+.famous-place-photo {
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.famous-place-card:hover .famous-place-photo {
+  transform: scale(1.05);
+}
+
+/* White overlapping information panel */
+
+
+.famous-place-info {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 0;
+  margin-top: -18px;
+  padding: 12px;
+
+  gap: 10px;
+
+  background: #ffffff;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+
+.famous-place-text {
+  min-width: 0;
+}
+
+
+.famous-place-text h3 {
+  color: #78112b;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+
+.famous-place-text p {
+  margin-top: 5px;
+  color: #374151;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+
+.famous-place-arrow {
+  display: flex;
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #191823;
+  color: #ffffff;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.famous-place-card:hover .famous-place-arrow {
+  background: #f47c20;
+}
+
+/* Tablet */
+
+@media (max-width: 1023px) {
+  .famous-places-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .famous-places-map {
+    width: 48%;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .famous-places-section {
+    padding: 24px 14px;
+  }
+
+  .famous-places-header {
+    min-height: 205px;
+    padding: 0 4px 20px;
+  }
+
+  .famous-places-title {
+    font-size: 30px;
+    letter-spacing: -1px;
+  }
+
+  .famous-places-description {
+    max-width: 240px;
+    font-size: 12px;
+  }
+
+  .famous-places-map {
+    width: 65%;
+    height: 150px;
+    top: 35px;
+    right: -30px;
+    opacity: 0.25;
+  }
+
+  .famous-places-map-label,
+  .famous-places-pin {
+    display: none;
+  }
+
+  .famous-places-grid {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+  }
+
+  .famous-place-card {
+    flex: 0 0 72%;
+    height: 340px;
+    scroll-snap-align: start;
+  }
+
+  .famous-place-image {
+    flex: 0 0 220px;
+    height: 220px;
+  }
+
+  .famous-place-info {
+    min-height: 95px;
+    padding: 12px;
+  }
+
+  .famous-place-text p {
+    font-size: 12px;
+  }
+
+  .famous-places-section::before {
+    width: 90%;
+    height: 65%;
+    top: 80px;
+    right: -20%;
+    opacity: 0.35;
+  }
+}
+
+
+/* ==========================================
+   FAMOUS PLACES - ANIMATED CAROUSEL
+========================================== */
+
+.famous-places-viewport {
+  --famous-visible-cards: 5;
+  --famous-card-gap: 12px;
+
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  margin-top: 20px;
+  padding: 5px 0 12px;
+
+  overflow: hidden;
+}
+
+.famous-places-track {
+  display: flex;
+  align-items: stretch;
+  gap: var(--famous-card-gap);
+
+  transform: translateX(calc(-1 * var(--famous-index, 0) * ((100% - (var(--famous-visible-cards) - 1) * var(--famous-card-gap)) / var(--famous-visible-cards) + var(--famous-card-gap))));
+}
+
+
+.famous-places-track-animated {
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+.famous-places-track .famous-place-card {
+  flex: 0 0 calc((100% - (var(--famous-visible-cards) - 1) * var(--famous-card-gap)) / var(--famous-visible-cards));
+
+  width: auto;
+  min-width: 0;
+  height: 340px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.famous-places-track .famous-place-image {
+  flex: 0 0 220px;
+  height: 220px;
+}
+
+.famous-places-track .famous-place-info {
+  flex: 1;
+  min-height: 0;
+  margin-top: -18px;
+}
+
+.famous-places-track .famous-place-text p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+/* Tablet: 3 cards */
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .famous-places-viewport {
+    --famous-visible-cards: 3;
+  }
+
+  .famous-places-title {
+    font-size: clamp(30px, 3.5vw, 42px);
+  }
+}
+
+/* Mobile: swipeable cards */
+
+@media (max-width: 767px) {
+  .famous-places-section::before {
+    display: none !important;
+    content: none;
+  }
+
+  .famous-places-map,
+  .famous-places-map-label,
+  .famous-places-pin,
+  .famous-places-pin-dot {
+    display: none !important;
+  }
+
+  .famous-places-header {
+    min-height: auto;
+    padding: 0 4px 20px;
+  }
+
+  .famous-places-heading {
+    max-width: 100%;
+  }
+
+
+  .famous-places-viewport {
+    --famous-visible-cards: 1;
+    --famous-card-gap: 12px;
+
+    margin-top: 15px;
+    overflow: hidden;
+    scroll-snap-type: none;
+  }
+
+  .famous-places-track {
+    width: 100%;
+  }
+
+  .famous-places-track .famous-place-card {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 340px;
+  }
+
+  .famous-places-track .famous-place-image {
+    flex: 0 0 220px;
+    height: 220px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .famous-places-track {
+    transition: none !important;
+  }
+}
+
+
+/* ==========================================
+   PROPERTY CATEGORY COUNTER SECTION
+========================================== */
+
+.property-category-section {
+  width: 100%;
+  margin-top: 40px;
+  padding: 42px 24px;
+  background: #ffffff;
+}
+
+.property-category-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.property-category-heading {
+  margin-bottom: 26px;
+}
+
+.property-category-heading h2 {
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 800;
+  color: #17365d;
+  line-height: 1.2;
+}
+
+.property-category-heading p {
+  max-width: 650px;
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #526078;
+}
+
+/* Seven responsive cards */
+
+
+.property-category-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (min-width: 1200px) {
+  .property-category-card {
+    height: 300px;
+  }
+
+  .property-category-count {
+    font-size: 30px;
+  }
+}
+
+
+/* Individual card */
+
+.property-category-card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  height: 280px;
+  min-width: 0;
+  overflow: hidden;
+
+  border-radius: 12px;
+  text-decoration: none;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.property-category-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Background image */
+
+.property-category-image {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.property-category-card:hover .property-category-image {
+  transform: scale(1.08);
+}
+
+/* Dark image overlay */
+
+.property-category-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.78) 100%);
+  z-index: 1;
+}
+
+/* Icon, count and category name */
+
+.property-category-content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100%;
+  padding: 20px 8px 26px;
+  text-align: center;
+}
+
+.property-category-icon {
+  color: #ff9f1c;
+  margin-bottom: 14px;
+}
+
+.property-category-count {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.property-category-content h3 {
+  margin-top: 7px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+/* Tablet */
+
+@media (max-width: 1199px) {
+  .property-category-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .property-category-card {
+    height: 270px;
+  }
+}
+
+@media (max-width: 767px) {
+  .property-category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .property-category-section {
+    padding: 28px 14px;
+  }
+
+  .property-category-card {
+    height: 235px;
+  }
+
+  .property-category-count {
+    font-size: 25px;
+  }
+
+  .property-category-content h3 {
+    font-size: 15px;
+  }
+
+  .property-category-icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Small mobile */
+
+@media (max-width: 380px) {
+  .property-category-card {
+    height: 210px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .property-category-card,
+  .property-category-image {
+    transition: none;
+  }
+}
+
+
+/* ==========================================
+   SANGLI PROPERTIES - HERO LAYOUT
+   SEARCH + COMPACT HIGHLIGHT
+========================================== */
+
+/* Desktop: left content, right background visible */
+
+.hero-main-layout {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+
+  column-gap: 40px;
+  align-items: start;
+}
+
+/* Left content */
+
+.hero-left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Search and Highlight same width */
+
+.hero-search-box,
+.hero-highlight-box {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Compact Highlight */
+
+.hero-highlight-box {
+  padding: 28px 18px;
+  background: #ffffff;
+  border: 1px solid #d9e1e8;
+  border-radius: 16px;
+
+  box-shadow: 0 5px 18px rgba(12, 35, 64, 0.10);
+}
+
+/* Highlight label */
+
+.hero-highlight-label {
+  color: #f59a19;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* Main Highlight text */
+
+.hero-highlight-title {
+  margin-top: 7px;
+  color: #0c2340;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* Feature descriptions */
+
+.hero-highlight-features {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.hero-highlight-features p {
+  color: #64748b;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* Tablet */
+
+@media (max-width: 1023px) {
+  .hero-main-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-left-column {
+    max-width: 680px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  .hero-main-layout {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .hero-left-column {
+    max-width: 100%;
+    gap: 14px;
+  }
+
+  .hero-highlight-box {
+    padding: 12px 14px;
+    border-radius: 12px;
+  }
+
+  .hero-highlight-title {
+    font-size: 14px;
+  }
+
+  .hero-highlight-features p {
+    font-size: 11px;
   }
 }

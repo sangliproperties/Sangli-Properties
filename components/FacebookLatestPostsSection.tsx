@@ -25,21 +25,26 @@ export default function FacebookLatestPostsSection() {
                                 Latest updates from our Facebook page
                             </p>
                         </div>
-                        <div className="flex h-[430px] justify-center overflow-hidden sm:hidden">
+
+                        <div className="flex min-h-[520px] justify-center overflow-hidden sm:hidden">
+
                             <iframe
                                 title="Sangli Properties Facebook Posts Mobile"
+
                                 src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
                                     facebookPageUrl
-                                )}&tabs=timeline&width=340&height=520&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false`}
+                                )}&tabs=timeline&width=340&height=520&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false`}
+
                                 width="340"
                                 height="520"
+
                                 style={{
                                     border: "none",
                                     overflow: "hidden",
                                     width: "100%",
                                     maxWidth: "340px",
-                                    transform: "translateY(-90px)",
                                 }}
+
                                 scrolling="no"
                                 frameBorder="0"
                                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
@@ -47,12 +52,16 @@ export default function FacebookLatestPostsSection() {
                             />
                         </div>
 
-                        <div className="hidden h-[560px] justify-center overflow-hidden sm:flex">
+
+                        <div className="hidden min-h-[650px] justify-center overflow-hidden sm:flex">
+
                             <iframe
                                 title="Sangli Properties Facebook Posts Desktop"
+
                                 src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
                                     facebookPageUrl
-                                )}&tabs=timeline&width=500&height=650&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false`}
+                                )}&tabs=timeline&width=500&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false`}
+
                                 width="500"
                                 height="650"
                                 style={{
@@ -60,7 +69,6 @@ export default function FacebookLatestPostsSection() {
                                     overflow: "hidden",
                                     width: "100%",
                                     maxWidth: "500px",
-                                    transform: "translateY(-90px)",
                                 }}
                                 scrolling="no"
                                 frameBorder="0"

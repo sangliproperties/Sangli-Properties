@@ -157,10 +157,10 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-semibold mb-1">Phone Number</h3>
                 <p className="text-sm text-[var(--color-muted)]">
-                  Office: +91-7385077033 / 9146636555
+                  Office : +91-9146636555 / 9322007062
                 </p>
                 <p className="text-sm text-[var(--color-muted)]">
-                  Mobile: +91-7385077033 / 9768365555
+                  Whatsapp : +91-7385077033 / 9146636555
                 </p>
               </div>
             </div>

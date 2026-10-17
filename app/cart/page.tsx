@@ -56,7 +56,7 @@ export default async function CartPage() {
                     <p className="mt-4 text-sm text-[var(--color-muted)]">No properties saved yet.</p>
                 ) : (
                     <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                        {items.map((item) => {
+                        {items.map((item: any) => {
                             const p = item.property;
 
                             const isLocal = !!p;
@@ -80,15 +80,19 @@ export default async function CartPage() {
 
                             const images = isLocal
                                 ? (p.images?.length
-                                    ? p.images.map((img) => ({
+                                    ?
+                                    p.images.map((img: { url: string;[key: string]: unknown }) => ({
                                         ...img,
                                         url: fixMobileImageUrl(img.url),
                                     }))
+
                                     : [{ url: "/SP Placeholder Image2.png" }])
                                 : Array.isArray(item.crmImages) && item.crmImages.length > 0
-                                    ? item.crmImages.map((url) => ({
+                                    ?
+                                    item.crmImages.map((url: unknown) => ({
                                         url: fixMobileImageUrl(String(url)),
                                     }))
+
                                     : [{ url: fixMobileImageUrl(item.crmImageUrl || "/SP Placeholder Image2.png") }];
 
                             const purposeText = isLocal

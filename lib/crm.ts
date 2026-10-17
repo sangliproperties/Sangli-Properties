@@ -5,6 +5,7 @@ export type CrmWebsiteProperty = {
     id: string;
     codeNo?: string | null;
     title: string;
+    isUrgent?: boolean | null;
     location: string;
     googleMapLink?: string | null;
     latitude?: string | number | null;

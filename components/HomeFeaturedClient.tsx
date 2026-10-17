@@ -88,9 +88,11 @@ function HomeFeaturedContent({ featured }: { featured: any[] }) {
                                 {(p.type ?? "").toLowerCase()}
                             </p>
 
-                            <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-[var(--color-header)]">
+
+                            <h3 className="property-card-title">
                                 {p.title}
                             </h3>
+
 
                             <p className="mt-1 text-[11px] text-[var(--color-muted)]">
                                 {p.locality}, {p.city}
@@ -115,12 +117,15 @@ function HomeFeaturedContent({ featured }: { featured: any[] }) {
                                 ) : null}
                             </dl>
 
-                            <div className="mt-4 flex items-center justify-between">
-                                <div className="text-sm font-semibold text-[var(--color-header)]">
-                                    ₹ {p.priceLabel?.trim() ? p.priceLabel : Number(p.price || 0).toLocaleString("en-IN")}
+
+                            <div className="mt-4 flex flex-col items-start gap-3">
+                                <div className="property-card-price">
+                                    ₹ {p.priceLabel?.trim()
+                                        ? p.priceLabel
+                                        : Number(p.price || 0).toLocaleString("en-IN")}
                                 </div>
 
-                                <div className="flex items-center gap-4">
+                                <div className="flex w-full flex-wrap items-center justify-between gap-3">
                                     <button
                                         type="button"
                                         onClick={() =>
@@ -128,10 +133,16 @@ function HomeFeaturedContent({ featured }: { featured: any[] }) {
                                                 propertyId: p.id,
                                                 propertyTitle: p.title || "",
                                                 propertyCodeNo: "",
-                                                propertyLocation: p.address || `${p.locality || ""}${p.locality && p.city ? ", " : ""}${p.city || ""}`,
-                                                propertyPrice: p.priceLabel?.trim() ? p.priceLabel : String(p.price || ""),
+                                                propertyLocation:
+                                                    p.address ||
+                                                    `${p.locality || ""}${p.locality && p.city ? ", " : ""}${p.city || ""}`,
+                                                propertyPrice: p.priceLabel?.trim()
+                                                    ? p.priceLabel
+                                                    : String(p.price || ""),
                                                 propertyType: String(p.type || ""),
-                                                propertyTransactionType: String(p.transaction || p.purpose || ""),
+                                                propertyTransactionType: String(
+                                                    p.transaction || p.purpose || ""
+                                                ),
                                                 propertyData: p,
                                             })
                                         }
@@ -142,7 +153,9 @@ function HomeFeaturedContent({ featured }: { featured: any[] }) {
 
                                     {(() => {
                                         const detailsKey =
-                                            p.slug && p.slug.trim() ? encodeURIComponent(p.slug.trim()) : String(p.id);
+                                            p.slug && p.slug.trim()
+                                                ? encodeURIComponent(p.slug.trim())
+                                                : String(p.id);
 
                                         const detailsUrl = `/properties/${detailsKey}`;
 

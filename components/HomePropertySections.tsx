@@ -1,9 +1,9 @@
 "use client";
-
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ContactModal from "@/components/ContactModal";
 import PropertyCardCarousel from "@/components/PropertyCardCarousel";
+import FamousPlacesSection from "@/components/FamousPlacesSection";
 import { formatArea, formatPriceINR } from "@/lib/format";
 import type { CrmWebsiteProperty } from "@/lib/crm";
 
@@ -81,20 +81,23 @@ function getIndustrial(properties: CrmWebsiteProperty[]) {
 
 }
 
+
 function PropertySection({
     title,
     viewAllHref,
     properties,
     sectionLabel,
     onContactClick,
-
+    highlightBackground = false,
 }: {
     title: string;
     viewAllHref: string;
     properties: CrmWebsiteProperty[];
     sectionLabel: string;
     onContactClick: (property: Record<string, any>) => void;
+    highlightBackground?: boolean;
 }) {
+
 
     const shouldScroll = properties.length > 4;
 
@@ -106,8 +109,53 @@ function PropertySection({
         ? [...visibleProperties, ...visibleProperties]
         : visibleProperties;
 
+
+    const trackRef = useRef<HTMLDivElement>(null);
+    const [scrollDuration, setScrollDuration] = useState(35);
+
+    useEffect(() => {
+        if (!shouldScroll) return;
+
+        const track = trackRef.current;
+        if (!track) return;
+
+        const updateScrollDuration = () => {
+            const firstCard = track.querySelector<HTMLElement>(
+                ".property-marquee-card"
+            );
+
+            if (!firstCard) return;
+
+            const cardWidth = firstCard.getBoundingClientRect().width;
+            const trackStyles = window.getComputedStyle(track);
+            const gap = parseFloat(trackStyles.columnGap) || 0;
+
+            const totalDistance =
+                visibleProperties.length * (cardWidth + gap);
+
+            const pixelsPerSecond = 60;
+
+            setScrollDuration(totalDistance / pixelsPerSecond);
+        };
+
+        updateScrollDuration();
+
+        const observer = new ResizeObserver(updateScrollDuration);
+        observer.observe(track);
+
+        return () => observer.disconnect();
+    }, [shouldScroll, visibleProperties.length]);
+
+
+
     return (
-        <section className="mt-10">
+        <section
+            className={
+                highlightBackground
+                    ? "mt-10 exclusive-property-section"
+                    : "mt-10"
+            }
+        >
             <div className="flex items-end justify-between gap-4">
                 <div>
                     <h3 className="text-xl font-semibold text-[var(--color-header)]">
@@ -124,13 +172,21 @@ function PropertySection({
             </div>
 
             <div className={shouldScroll ? "mt-6 overflow-hidden" : "mt-6"}>
+
                 <div
+                    ref={trackRef}
                     className={
                         shouldScroll
                             ? "property-marquee-track"
                             : "grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
                     }
+                    style={
+                        shouldScroll
+                            ? { animationDuration: `${scrollDuration}s` }
+                            : undefined
+                    }
                 >
+
                     {displayProperties.map((p, index) => {
                         const images = Array.isArray(p.images) ? p.images.filter(Boolean) : [];
                         const locationText = String(p.location || "");
@@ -169,9 +225,11 @@ function PropertySection({
                                         · {sectionLabel}
                                     </p>
 
-                                    <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-[var(--color-header)]">
+
+                                    <h3 className="property-card-title">
                                         {p.title}
                                     </h3>
+
 
                                     <p className="mt-1 text-[11px] text-gray-500">{locationText}</p>
 
@@ -197,12 +255,15 @@ function PropertySection({
                                         ) : null}
                                     </div>
 
-                                    <div className="mt-4 flex items-center justify-between">
-                                        <div className="text-sm font-semibold text-[var(--color-header)]">
-                                            ₹ {!Number.isNaN(numericPrice) ? formatPriceINR(numericPrice) : "-"}
+
+                                    <div className="mt-4 flex flex-col items-start gap-3">
+                                        <div className="property-card-price">
+                                            ₹ {!Number.isNaN(numericPrice)
+                                                ? formatPriceINR(numericPrice)
+                                                : "-"}
                                         </div>
 
-                                        <div className="flex items-center gap-4">
+                                        <div className="flex w-full flex-wrap items-center justify-between gap-3">
                                             <button
                                                 type="button"
                                                 onClick={() =>
@@ -232,6 +293,7 @@ function PropertySection({
                                             </Link>
                                         </div>
                                     </div>
+
                                 </div>
                             </article>
                         );
@@ -253,14 +315,45 @@ export default function HomePropertySections({
 }: {
     properties: CrmWebsiteProperty[];
 }) {
-    const [selectedProperty, setSelectedProperty] = useState<Record<string, any> | null>(null);
+
+    const [selectedProperty, setSelectedProperty] =
+        useState<Record<string, any> | null>(null);
+
+    const urgentProperties = properties.filter((p) => {
+        const status = normalizeText(p.status);
+
+        return (
+            p.isUrgent === true &&
+            isActiveStatus(status)
+        );
+    });
+
     const residential = getResidential(properties);
     const commercial = getCommercial(properties);
     const landPlot = getLandPlot(properties);
     const industrial = getIndustrial(properties);
 
+
     return (
         <>
+
+
+            {urgentProperties.length > 0 && (
+                <PropertySection
+                    title="Exclusive Sale & Rental Listings"
+                    viewAllHref="/properties"
+                    properties={urgentProperties}
+                    sectionLabel="URGENT PROPERTY"
+                    onContactClick={setSelectedProperty}
+                    highlightBackground={true}
+                />
+            )}
+
+
+            {/* Famous Places - Great Properties */}
+            <FamousPlacesSection />
+
+
             <PropertySection
                 title="Residential Properties"
                 viewAllHref="/properties/residential"
