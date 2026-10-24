@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
 import { logger } from "@/lib/logger";
+import { sendWebsiteAnalytics } from "@/lib/website-analytics";
 
 function sign(value: string) {
   const secret = process.env.AUTH_SECRET || "dev_secret";
@@ -46,6 +47,16 @@ export async function POST(req: Request) {
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 30,
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    // Record every successful authentication.
+    // This includes new and returning customers.
+    await sendWebsiteAnalytics({
+      type: "login",
+      userId: user.id,
+      fullName: user.fullName,
+      phone: user.phone,
     });
 
     return res;

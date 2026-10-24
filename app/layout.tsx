@@ -12,6 +12,7 @@ import LogoutButton from "@/components/LogoutButton";
 import Link from "next/link";
 import HeaderUserActions from "@/components/HeaderUserActions";
 import MobileHeaderMenu from "@/components/MobileHeaderMenu";
+import VisitorTracker from "@/components/VisitorTracker";
 import Image from "next/image";
 
 // closest premium serif to Bropella
@@ -43,6 +44,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
+
+        <VisitorTracker />
+
         <div className="flex min-h-screen flex-col">
 
           {/* HEADER */}
@@ -267,9 +271,9 @@ export default function RootLayout({
                   <div className="space-y-1 text-[11px] text-left md:text-right">
                     <p>© {year} Sangli Properties LLP. All rights reserved.</p>
                     <p>
-                      RERA No:{" "}
+                      LLPIN :{" "}
                       <span className="font-semibold text-[var(--color-header)]">
-                        A53100019451
+                        ACQ-2361
                       </span>
                     </p>
                   </div>

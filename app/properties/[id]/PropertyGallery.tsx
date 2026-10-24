@@ -2,6 +2,23 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+
+function PropertyWatermark() {
+    return (
+        <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center overflow-hidden"
+        >
+            <span
+                className="select-none whitespace-nowrap text-center text-[clamp(11px,2vw,25px)] font-extrabold tracking-wider text-white/30"
+            >
+                Sangli Properties LLP
+            </span>
+        </div>
+    );
+}
+
+
 export default function PropertyGallery({
     images,
     title,
@@ -158,6 +175,8 @@ export default function PropertyGallery({
                                         }`}
                                 />
 
+                                <PropertyWatermark />
+
                                 {isViewMoreCard ? (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
                                         <div className="mb-2 rounded-full bg-white/25 p-3 backdrop-blur-sm">
@@ -231,27 +250,31 @@ export default function PropertyGallery({
                         Swipe or use arrows
                     </div>
 
+
                     <div
-                        className="flex h-full w-full items-center justify-center overflow-hidden"
-                        onWheel={handleWheel}
-                        onMouseMove={handleMouseMove}
-                        onMouseUp={handleMouseUp}
-                        onMouseLeave={handleMouseLeave}
+                        className="relative inline-block max-h-[72vh] max-w-[92vw] transition-transform duration-150 ease-out md:max-h-[90vh] md:max-w-[90vw]"
+                        style={{
+                            transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
+                            transformOrigin: "center center",
+                        }}
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={currentSrc}
                             alt={`${title} large preview`}
-                            className={`max-h-[72vh] max-w-[92vw] select-none object-contain transition-transform duration-150 ease-out md:max-h-[90vh] md:max-w-[90vw] ${zoom > 1 ? (isDragging ? "cursor-grabbing" : "cursor-grab") : ""
+                            className={`block max-h-[72vh] max-w-[92vw] select-none object-contain md:max-h-[90vh] md:max-w-[90vw] ${zoom > 1
+                                    ? isDragging
+                                        ? "cursor-grabbing"
+                                        : "cursor-grab"
+                                    : ""
                                 }`}
-                            style={{
-                                transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
-                                transformOrigin: "center center",
-                            }}
                             draggable={false}
                             onMouseDown={handleMouseDown}
                         />
+
+                        <PropertyWatermark />
                     </div>
+
                     <div className="pointer-events-none absolute bottom-8 left-1/2 z-[10001] -translate-x-1/2 rounded-full bg-black/75 px-5 py-2 text-sm font-bold text-white shadow-lg">
                         {openIndex + 1} / {total}
                     </div>
