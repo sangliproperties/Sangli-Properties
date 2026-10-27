@@ -6,6 +6,8 @@ import PropertyCardCarousel from "@/components/PropertyCardCarousel";
 import FamousPlacesSection from "@/components/FamousPlacesSection";
 import { formatArea, formatPriceINR } from "@/lib/format";
 import type { CrmWebsiteProperty } from "@/lib/crm";
+import WebsiteAdsSlider from "@/components/WebsiteAdsSlider";
+import type { WebsiteAd } from "@/lib/website-ads";
 
 function normalizeText(value: unknown) {
     return String(value || "").trim().toUpperCase();
@@ -310,10 +312,13 @@ function PropertySection({
     );
 }
 
+
 export default function HomePropertySections({
     properties,
+    websiteAds,
 }: {
     properties: CrmWebsiteProperty[];
+    websiteAds: WebsiteAd[];
 }) {
 
     const [selectedProperty, setSelectedProperty] =
@@ -349,10 +354,18 @@ export default function HomePropertySections({
                 />
             )}
 
-
             {/* Famous Places - Great Properties */}
             <FamousPlacesSection />
 
+            {/* PORTRAIT ADS — BELOW FAMOUS PLACES */}
+            {websiteAds.some((ad) => ad.placement === "portrait") && (
+                <div className="mt-10">
+                    <WebsiteAdsSlider
+                        ads={websiteAds}
+                        placement="portrait"
+                    />
+                </div>
+            )}
 
             <PropertySection
                 title="Residential Properties"

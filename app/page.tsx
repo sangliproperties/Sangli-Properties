@@ -10,6 +10,8 @@ import HomeHeroSearch from "@/components/HomeHeroSearch";
 import HeroTextAnimation from "@/components/HeroTextAnimation";
 import FacebookLatestPostsSection from "@/components/FacebookLatestPostsSection";
 import PropertyCategoryCounterSection from "@/components/PropertyCategoryCounterSection";
+import WebsiteAdsSlider from "@/components/WebsiteAdsSlider";
+import { getWebsiteAds } from "@/lib/website-ads";
 
 
 // Logos used in the “Our Happy Customers” strip
@@ -37,9 +39,13 @@ const CUSTOMER_LOGOS = [
   "/logos/Star Localmart.png",
 ];
 
+
 export default async function HomePage() {
 
-  const crmProperties = await getWebsiteProperties();
+  const [crmProperties, websiteAds] = await Promise.all([
+    getWebsiteProperties(),
+    getWebsiteAds(),
+  ]);
 
   return (
     <main className="bg-[var(--color-bg)] text-[var(--color-text)]">
@@ -120,7 +126,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* HOME PROPERTY SECTIONS */}
+      {/* LANDSCAPE ADS — BELOW HERO / HIGHLIGHT */}
+      {websiteAds.some((ad) => ad.placement === "landscape") && (
+        <section
+          aria-label="Landscape Advertisements"
+          className="border-b border-[var(--color-border)] bg-[var(--color-bg)]"
+        >
+          <div className="site-container py-6">
+            <WebsiteAdsSlider
+              ads={websiteAds}
+              placement="landscape"
+            />
+          </div>
+        </section>
+      )}
+
       {/* HOME PROPERTY SECTIONS */}
       {crmProperties.length > 0 ? (
         <section
@@ -128,16 +148,19 @@ export default async function HomePage() {
           className="border-t border-[var(--color-border)] bg-[var(--color-bg)]"
         >
           <div className="site-container py-10">
-            <div>
+            {/* <div>
               <h2 className="text-lg font-semibold text-[var(--color-header)]">
                 Featured Property Deals
               </h2>
               <p className="mt-1 text-xs text-[var(--color-muted)]">
                 Explore handpicked properties available for sale and rent.
               </p>
-            </div>
+            </div> */}
 
-            <HomePropertySections properties={crmProperties} />
+            <HomePropertySections
+              properties={crmProperties}
+              websiteAds={websiteAds}
+            />
           </div>
         </section>
       ) : null}

@@ -4,7 +4,7 @@ export default function FacebookLatestPostsSection() {
     return (
         <section className="border-t border-[var(--color-border)] bg-[var(--color-bg)]">
             <div className="mx-auto max-w-[1400px] px-4 py-12">
-                <div className="text-center">
+                {/* <div className="text-center">
                     <p className="text-[20px] font-semibold tracking-[0.25em] uppercase text-[var(--color-accent)]">
                         OUR LATEST POSTS
                     </p>
@@ -12,11 +12,11 @@ export default function FacebookLatestPostsSection() {
                     <h2 className="mt-4 text-[16px] font-semibold text-[var(--color-header)]">
                         Follow our latest Facebook updates
                     </h2>
-                </div>
+                </div> */}
 
                 <div className="mt-10 grid gap-6 lg:grid-cols-[560px_1fr]">
                     {/* Left: Facebook Timeline */}
-                    <div className="overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-white p-4 shadow-[0_18px_40px_rgba(15,23,42,0.14)]">
+                    {/* <div className="overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-white p-4 shadow-[0_18px_40px_rgba(15,23,42,0.14)]">
                         <div className="mb-4 border-b border-[var(--color-border)] pb-4">
                             <h3 className="mt-4 text-2xl font-semibold leading-tight text-[var(--color-header)]">
                                 Sangli Properties LLP
@@ -76,10 +76,10 @@ export default function FacebookLatestPostsSection() {
                                 allowFullScreen
                             />
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Right: Branded CTA / Highlights */}
-                    <div className="hidden rounded-[24px] border border-[var(--color-border)] bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.10)] sm:p-8 lg:block">
+                   {/*  <div className="hidden rounded-[24px] border border-[var(--color-border)] bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.10)] sm:p-8 lg:block">
                         <p className="text-sm font-semibold tracking-[0.25em] uppercase text-[var(--color-accent)]">
                             Sangli Properties LLP
                         </p>
@@ -129,7 +129,7 @@ export default function FacebookLatestPostsSection() {
                                 View Properties
                             </a>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>

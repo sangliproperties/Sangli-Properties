@@ -43,9 +43,14 @@ export async function POST(req: NextRequest) {
             body?.type ?? ""
         ).trim().toLowerCase();
 
+
         // Global list caches - immediate expiration
         revalidateTag("crm-properties", { expire: 0 });
         revalidateTag("crm-properties-all", { expire: 0 });
+
+        // Website advertisement cache - immediate expiration
+        revalidateTag("crm-website-ads", { expire: 0 });
+
 
         // Type-specific list caches - immediate expiration
         if (propertyType) {
